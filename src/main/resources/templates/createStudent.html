@@ -1,0 +1,20 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Getting Started: Serving Web Content</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+<h2>New Student Entry</h2>
+
+<form action="/createStudent" method="post" modelAttribute="student">
+    First name:<br>
+    <input type="text" name="firstName">
+    <br>
+    Last name:<br>
+    <input type="text" name="lastName">
+    <br><br>
+    <input type="submit" value="Submit">
+</form>
+</body>
+</html>

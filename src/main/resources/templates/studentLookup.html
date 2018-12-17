@@ -1,0 +1,13 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Student Lookup</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+<h2>Following Students were Found:</h2>
+<p th:text="'Id: ' + ${id}" />
+<p th:text="'First Name: ' + ${firstName}" />
+<p th:text="'Last Name: ' + ${lastName}" />
+</body>
+</html>

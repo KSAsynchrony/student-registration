@@ -11,6 +11,12 @@ public class CourseService {
 
     private static Map<Long, Course> courseMap = new HashMap<>();
 
+    static{
+        courseMap.put(1l, new Course(1, "Maths"));
+        courseMap.put(2l, new Course(2, "Science"));
+        courseMap.put(3l, new Course(3, "Literature"));
+    }
+
     public Course createCourse(Course course){
 
         Course newCourse;

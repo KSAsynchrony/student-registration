@@ -7,6 +7,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.PostConstruct;
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -14,6 +15,9 @@ public class CourseController {
 
     @Autowired
     private CourseService courseService;
+
+    @Autowired
+    private StudentRepository studentRepository;
 
     @GetMapping("/createCourse")
     public String getMapping(){
@@ -43,12 +47,17 @@ public class CourseController {
     @GetMapping("/getstudents")
     public String getStudentIdsForCourse(@RequestParam long courseId, ModelMap modelMap) throws  Exception{
         List<Long> studentIds = courseService.getStudentIdsForCourse(courseId);
+        List<Student> students = new ArrayList<>();
         if(studentIds != null){
-            modelMap.addAttribute("studentIdList", studentIds);
+            for(Long studentId : studentIds){
+                Student student = studentRepository.get(studentId);
+                students.add(student);
+            }
+            modelMap.addAttribute("students", students);
         }else{
             throw new Exception("Course not found");
         }
 
-      return "getStudentsSuccess";
+      return "allStudents";
     }
 }

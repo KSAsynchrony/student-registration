@@ -12,9 +12,9 @@ public class CourseService {
     private static Map<Long, Course> courseMap = new HashMap<>();
 
     static{
-        courseMap.put(1l, new Course(1, "Maths"));
-        courseMap.put(2l, new Course(2, "Science"));
-        courseMap.put(3l, new Course(3, "Literature"));
+        courseMap.put(1l, new Course(1l, "Maths"));
+        courseMap.put(2l, new Course(2l, "Science"));
+        courseMap.put(3l, new Course(3l, "Literature"));
     }
 
     public Course createCourse(Course course){
@@ -29,8 +29,8 @@ public class CourseService {
         return courseMap.get(courseId);
     }
 
-    private int findNextId(){
-        return courseMap.size() == 0 ? 1 : courseMap.size()+1;
+    private Long findNextId(){
+        return courseMap.size() == 0 ? 1l : courseMap.size()+1l;
     }
 
     public void linkStudentWithCourse(List<Long> courseIds, long studentId){

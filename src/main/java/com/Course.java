@@ -6,11 +6,11 @@ import java.util.Objects;
 
 public class Course {
 
-    private long courseId;
+    private Long courseId;
     private String courseName;
     private List<Long> studentIDs = new ArrayList<>();
 
-    public Course(long courseId, String courseName){
+    public Course(Long courseId, String courseName){
         this.courseId = courseId;
         this.courseName = courseName;
     }
@@ -19,7 +19,7 @@ public class Course {
         return courseId;
     }
 
-    public void setCourseId(int courseId) {
+    public void setCourseId(Long courseId) {
         this.courseId = courseId;
     }
 

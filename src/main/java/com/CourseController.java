@@ -15,8 +15,13 @@ public class CourseController {
     @Autowired
     private CourseService courseService;
 
+    @GetMapping("/createCourse")
+    public String getMapping(){
+        return "createCourse";
+    }
+
     @PostMapping("/createcourse")
-    public String createCourse(@ModelAttribute Course course, ModelMap modelMap){
+    public String createCourse(@ModelAttribute("course") Course course, ModelMap modelMap){
         Course newCourse = courseService.createCourse(course);
         modelMap.addAttribute("courseId", newCourse.getCourseId());
         modelMap.addAttribute("courseName", newCourse.getCourseName());
@@ -32,7 +37,7 @@ public class CourseController {
         }else{
             throw new Exception("Course not found");
         }
-        return "courseSuccess";
+        return "courseLookup";
     }
 
     @GetMapping("/getstudents")

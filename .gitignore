@@ -3,3 +3,6 @@
 target
 .gradle
 build
+*gradlew
+gradle
+out

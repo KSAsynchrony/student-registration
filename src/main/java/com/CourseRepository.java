@@ -12,6 +12,7 @@ public class CourseRepository {
 
     private static Map<Long, Course> courseMap = new HashMap<>();
 
+
     static{
         courseMap.put(1l, new Course(1l, "Maths"));
         courseMap.put(2l, new Course(2l, "Science"));

@@ -3,6 +3,7 @@ package com;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.thymeleaf.util.StringUtils;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -11,6 +12,16 @@ public class StudentRepository extends HashMap<Long, Student> {
 
     @Autowired
     CourseRepository courseRepository;
+
+    public List<Student> getAll(List<Long> studentIDs) {
+        List<Student> students = new ArrayList<>();
+        for (Long id : studentIDs) {
+            if (get(id) != null) {
+                students.add(get(id));
+            }
+        }
+        return students;
+    }
 
     public Long addStudent(StudentRegistration registration) {
         Long id = nextAvailableId();

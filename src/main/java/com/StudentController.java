@@ -13,17 +13,20 @@ import java.util.Collection;
 @Controller()
 public class StudentController {
 
-    @Autowired
     StudentRepository studentRepository;
 
+    public StudentController(StudentRepository studentRepository) {
+        this.studentRepository = studentRepository;
+    }
+
     @GetMapping(value = "/createStudent")
-    public String greeting() {
+    public String createStudent() {
         return "createStudent";
     }
 
     @RequestMapping(value = "/createStudent", method = RequestMethod.POST)
-    public String greeting(@Valid @ModelAttribute("student") StudentRegistration studentRegistration,
-                           ModelMap model) {
+    public String createStudent(@Valid @ModelAttribute("student") StudentRegistration studentRegistration,
+                                ModelMap model) {
         model.addAttribute("id", studentRepository.addStudent(studentRegistration));
         model.addAttribute("firstName", studentRegistration.getFirstName());
         model.addAttribute("lastName", studentRegistration.getLastName());
@@ -31,9 +34,9 @@ public class StudentController {
     }
 
     @RequestMapping(value = "/getStudent")
-    public String getStudent(@RequestParam(name = "id", required = true, defaultValue = "0") String id,
-                             Model model) {
-        Student returnedStudent = studentRepository.get(Long.parseLong(id));
+    public String getStudentById(@RequestParam(name = "id", required = true, defaultValue = "0") Long id,
+                                 ModelMap model) {
+        Student returnedStudent = studentRepository.get(id);
 
         model.addAttribute("id", id);
         model.addAttribute("firstName", returnedStudent.getFirstName());
@@ -42,7 +45,7 @@ public class StudentController {
     }
 
     @RequestMapping(value = "/allStudents")
-    public String getStudent(Model model) {
+    public String getAllStudents(ModelMap model) {
         Collection<Student> students = studentRepository.values();
         model.addAttribute("students", students);
         return "allStudents";

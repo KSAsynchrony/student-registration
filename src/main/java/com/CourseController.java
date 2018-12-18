@@ -6,7 +6,6 @@ import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
-import javax.annotation.PostConstruct;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,7 +13,7 @@ import java.util.List;
 public class CourseController {
 
     @Autowired
-    private CourseService courseService;
+    private CourseRepository courseRepository;
 
     @Autowired
     private StudentRepository studentRepository;
@@ -24,17 +23,17 @@ public class CourseController {
         return "createCourse";
     }
 
-    @PostMapping("/createcourse")
+    @PostMapping("/createCourse")
     public String createCourse(@ModelAttribute("course") Course course, ModelMap modelMap){
-        Course newCourse = courseService.createCourse(course);
+        Course newCourse = courseRepository.createCourse(course);
         modelMap.addAttribute("courseId", newCourse.getCourseId());
         modelMap.addAttribute("courseName", newCourse.getCourseName());
         return "courseSuccess";
     }
 
-    @GetMapping("/lookupcourse")
+    @GetMapping("/lookupCourse")
     public String findCourse(@RequestParam long courseId, ModelMap modelMap) throws Exception {
-        Course course = courseService.findCourse(courseId);
+        Course course = courseRepository.findCourse(courseId);
         if(course != null){
             modelMap.addAttribute("courseId", course.getCourseId());
             modelMap.addAttribute("courseName", course.getCourseName());
@@ -44,9 +43,9 @@ public class CourseController {
         return "courseLookup";
     }
 
-    @GetMapping("/getstudents")
+    @GetMapping("/getStudents")
     public String getStudentIdsForCourse(@RequestParam long courseId, ModelMap modelMap) throws  Exception{
-        List<Long> studentIds = courseService.getStudentIdsForCourse(courseId);
+        List<Long> studentIds = courseRepository.getStudentIdsForCourse(courseId);
         List<Student> students = new ArrayList<>();
         if(studentIds != null){
             for(Long studentId : studentIds){
@@ -59,5 +58,11 @@ public class CourseController {
         }
 
       return "allStudents";
+    }
+
+    @GetMapping("/allCourses")
+    public String getAllCourses(Model model) {
+        model.addAttribute("courses", courseRepository.getAllCourses());
+        return "allCourses";
     }
 }

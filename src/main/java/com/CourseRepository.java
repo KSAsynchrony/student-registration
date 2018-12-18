@@ -2,12 +2,13 @@ package com;
 
 import org.springframework.stereotype.Service;
 
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 @Service
-public class CourseService {
+public class CourseRepository {
 
     private static Map<Long, Course> courseMap = new HashMap<>();
 
@@ -44,5 +45,9 @@ public class CourseService {
     public List<Long> getStudentIdsForCourse(long courseId){
         Course course = courseMap.get(courseId);
         return course != null ? course.getStudentIDs() : null;
+    }
+
+    public Collection<Course> getAllCourses() {
+        return courseMap.values();
     }
 }

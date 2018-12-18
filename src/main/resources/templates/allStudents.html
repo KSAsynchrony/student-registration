@@ -8,9 +8,12 @@
 <h2>All Registered Students</h2>
 
 <th th:each="student :${students}">
-    <p th:text="'Id: ' + ${student.id}" />
-    <p th:text="'First Name: ' + ${student.firstName}" />
-    <p th:text="'Last Name: ' + ${student.lastName}" />
+    <span th:text="'Id: ' + ${student.id}" /><br>
+    <span th:text="'First Name: ' + ${student.firstName}" /><br>
+    <span th:text="'Last Name: ' + ${student.lastName}" /><br>
+    <br>
 </th>
+<br>
+<a href="/">Home</a><br>
 </body>
 </html>

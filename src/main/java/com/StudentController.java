@@ -22,11 +22,11 @@ public class StudentController {
     }
 
     @RequestMapping(value = "/createStudent", method = RequestMethod.POST)
-    public String greeting(@Valid @ModelAttribute("student") Student student,
+    public String greeting(@Valid @ModelAttribute("student") StudentRegistration studentRegistration,
                            ModelMap model) {
-        model.addAttribute("id", studentRepository.addStudent(student.getFirstName(), student.getLastName()));
-        model.addAttribute("firstName", student.getFirstName());
-        model.addAttribute("lastName", student.getLastName());
+        model.addAttribute("id", studentRepository.addStudent(studentRegistration));
+        model.addAttribute("firstName", studentRegistration.getFirstName());
+        model.addAttribute("lastName", studentRegistration.getLastName());
         return "studentCreateSuccess";
     }
 

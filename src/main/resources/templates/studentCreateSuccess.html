@@ -6,8 +6,12 @@
 </head>
 <body>
 <h2>Student Created Successfully:</h2>
-<p th:text="'Id: ' + ${id}" />
-<p th:text="'First Name: ' + ${firstName}" />
-<p th:text="'Last Name: ' + ${lastName}" />
+    <span th:text="'Id: ' + ${id}" /><br>
+    <span th:text="'First Name: ' + ${firstName}" /><br>
+    <span th:text="'Last Name: ' + ${lastName}" /><br>
+<br><br>
+<a href="/createStudent">Add Another Student</a>
+<br>
+<a href="/">Home</a>
 </body>
 </html>

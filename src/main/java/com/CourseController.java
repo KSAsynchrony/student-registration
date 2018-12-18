@@ -11,11 +11,14 @@ import java.util.List;
 @Controller
 public class CourseController {
 
-    @Autowired
     private CourseRepository courseRepository;
 
-    @Autowired
     private StudentRepository studentRepository;
+
+    public CourseController(CourseRepository courseRepository, StudentRepository studentRepository){
+        this.courseRepository = courseRepository;
+        this.studentRepository = studentRepository;
+    }
 
     @GetMapping("/createCourse")
     public String getMapping(){
@@ -43,7 +46,7 @@ public class CourseController {
     }
 
     @GetMapping("/getStudents")
-    public String getStudentIdsForCourse(@RequestParam long courseId, ModelMap modelMap) throws  Exception{
+    public String getStudentsForCourse(@RequestParam long courseId, ModelMap modelMap) throws  Exception{
         List<Long> studentIds = courseRepository.getStudentIdsForCourse(courseId);
         if(studentIds != null){
             modelMap.addAttribute("students", studentRepository.getAll(studentIds));
@@ -55,8 +58,8 @@ public class CourseController {
     }
 
     @GetMapping("/allCourses")
-    public String getAllCourses(Model model) {
-        model.addAttribute("courses", courseRepository.getAllCourses());
+    public String getAllCourses(ModelMap modelMap) {
+        modelMap.addAttribute("courses", courseRepository.getAllCourses());
         return "allCourses";
     }
 }

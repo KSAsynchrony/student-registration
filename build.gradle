@@ -30,5 +30,8 @@ dependencies {
     compile("org.springframework.boot:spring-boot-starter-thymeleaf")
     compile("org.springframework.boot:spring-boot-devtools")
     testCompile("org.springframework.boot:spring-boot-starter-test")
+<<<<<<< HEAD
 
+=======
+>>>>>>> 9c3e78d95d8734dfcbed8a07f9e39dfb80d74cd6
 }

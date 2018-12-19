@@ -17,8 +17,8 @@ public class StudentRepositoryTest {
     public void init() {
         courseRepository = new CourseRepository();
         studentRepository = new StudentRepository(courseRepository);
-        kerim = new Student(0l, "Kerim", "Strikovic", Arrays.asList(1l,2l,3l));
-        john = new Student(1l, "John", "Doe", Arrays.asList(1l,3l));
+        kerim = new Student(0l, "Kerim", "Strikovic", Arrays.asList(1l, 2l, 3l));
+        john = new Student(1l, "John", "Doe", Arrays.asList(1l, 3l));
         dave = new Student(2l, "Dave", "Blatt", Arrays.asList(3l));
     }
 
@@ -27,7 +27,7 @@ public class StudentRepositoryTest {
         studentRepository.addStudent(new StudentRegistration(kerim.getFirstName(), kerim.getLastName(), "1,2,3"));
         studentRepository.addStudent(new StudentRegistration(john.getFirstName(), john.getLastName(), "1,3"));
 
-        assert(studentRepository.get(1l).equals(john));
+        assert (studentRepository.get(1l).equals(john));
     }
 
     @Test
@@ -38,6 +38,6 @@ public class StudentRepositoryTest {
 
         List<Student> expectedList = Arrays.asList(kerim, dave);
 
-        assert(studentRepository.getAll(Arrays.asList(0l, 2l)).equals(expectedList));
+        assert (studentRepository.getAll(Arrays.asList(0l, 2l)).equals(expectedList));
     }
 }

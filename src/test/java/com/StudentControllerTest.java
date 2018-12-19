@@ -5,6 +5,7 @@ import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.*;
+
 import org.springframework.ui.ModelMap;
 
 import java.util.Arrays;
@@ -25,15 +26,15 @@ public class StudentControllerTest {
         studentController = new StudentController(studentRepositoryMock);
         model = new ModelMap();
 
-        kerim = new Student(0l, "Kerim", "Strikovic", Arrays.asList(1l,2l,3l));
-        john = new Student(1l, "John", "Doe", Arrays.asList(1l,3l));
+        kerim = new Student(0l, "Kerim", "Strikovic", Arrays.asList(1l, 2l, 3l));
+        john = new Student(1l, "John", "Doe", Arrays.asList(1l, 3l));
         dave = new Student(2l, "Dave", "Blatt", Arrays.asList(3l));
 
     }
 
     @Test
     public void testGreeting() {
-       assertEquals("createStudent", studentController.createStudent());
+        assertEquals("createStudent", studentController.createStudent());
     }
 
     @Test

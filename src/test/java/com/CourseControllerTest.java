@@ -19,8 +19,9 @@ public class CourseControllerTest {
     CourseController courseController;
 
     ModelMap modelMap;
+
     @Before
-    public void setUp(){
+    public void setUp() {
         courseRepository = mock(CourseRepository.class);
         studentRepository = mock(StudentRepository.class);
         courseController = new CourseController(courseRepository, studentRepository);
@@ -28,12 +29,12 @@ public class CourseControllerTest {
     }
 
     @Test
-    public void testGetMapping(){
+    public void testGetMapping() {
         Assert.assertTrue("createCourse".equals(courseController.getMapping()));
     }
 
     @Test
-    public void testCreateCourse(){
+    public void testCreateCourse() {
         Course course = new Course(null, "testCourse");
 
         when(courseRepository.createCourse(course)).thenReturn(new Course(4l, "testCourse"));
@@ -45,7 +46,7 @@ public class CourseControllerTest {
     }
 
     @Test
-    public void testFindCourse() throws Exception{
+    public void testFindCourse() throws Exception {
 
         when(courseRepository.findCourse(1l)).thenReturn(new Course(1l, "Maths"));
 
@@ -57,7 +58,7 @@ public class CourseControllerTest {
     }
 
     @Test
-    public void testGetStudentsForCourse() throws Exception{
+    public void testGetStudentsForCourse() throws Exception {
         List<Long> courseIds = new ArrayList<>();
         courseIds.add(1l);
         courseIds.add(2l);
@@ -81,7 +82,7 @@ public class CourseControllerTest {
     }
 
     @Test
-    public void testGetAllCourses(){
+    public void testGetAllCourses() {
         Course course = new Course(1l, "Maths");
         List<Course> courses = new ArrayList<>();
         courses.add(course);

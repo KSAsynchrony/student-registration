@@ -9,18 +9,17 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 
-public class CourseRepositoryTest 
-{
+public class CourseRepositoryTest {
     CourseRepository courseRepository;
 
     @Before
-    public void setup(){
+    public void setup() {
         courseRepository = new CourseRepository();
     }
 
 
     @Test
-    public void testCreateCourse(){
+    public void testCreateCourse() {
         Course course = new Course(null, "testCourse");
         Course expected = new Course(4l, "testCourse");
         Course actual = courseRepository.createCourse(course);
@@ -28,7 +27,7 @@ public class CourseRepositoryTest
     }
 
     @Test
-    public void testFindCourse(){
+    public void testFindCourse() {
         Course expected = new Course(1l, "Maths");
         Course actual = courseRepository.findCourse(1l);
         Assert.assertNotNull(actual);
@@ -36,7 +35,7 @@ public class CourseRepositoryTest
     }
 
     @Test
-    public void testLinkSutdentWithCourse(){
+    public void testLinkSutdentWithCourse() {
         List<Long> courseIds = new ArrayList<>();
         courseIds.add(1l);
         courseIds.add(2l);
@@ -51,11 +50,11 @@ public class CourseRepositoryTest
     }
 
     @Test
-    public void testGetAllCourses(){
+    public void testGetAllCourses() {
 
         Collection<Course> courses = courseRepository.getAllCourses();
 
         Assert.assertTrue(courses.size() == 3);
     }
-    
+
 }

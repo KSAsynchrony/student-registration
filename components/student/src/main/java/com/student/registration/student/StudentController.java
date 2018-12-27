@@ -1,13 +1,12 @@
 package com.student.registration.student;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import com.student.registration.repository.Student;
+import com.student.registration.repository.StudentRegistration;
+import com.student.registration.repository.StudentRepository;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
 import java.util.Collection;
 
 @Controller()
@@ -25,7 +24,7 @@ public class StudentController {
     }
 
     @RequestMapping(value = "/createStudent", method = RequestMethod.POST)
-    public String createStudent(@Valid @ModelAttribute("com/student/registration/student") StudentRegistration studentRegistration,
+    public String createStudent(@ModelAttribute("com/student/registration/student") StudentRegistration studentRegistration,
                                 ModelMap model) {
         model.addAttribute("id", studentRepository.addStudent(studentRegistration));
         model.addAttribute("firstName", studentRegistration.getFirstName());

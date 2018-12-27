@@ -1,1 +1,6 @@
 apply from: "$projectDir/../server.gradle"
+
+dependencies{
+    compile project(":components:course")
+    compile project(":components:student")
+}

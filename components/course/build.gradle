@@ -1,4 +1,3 @@
 dependencies {
-    compile "org.springframework:spring-web:2.0.5.RELEASE"
     compile project(":components:repository")
 }

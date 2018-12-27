@@ -1,9 +1,9 @@
 package com.student.registration.course;
 
-import com.student.registration.student.StudentRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.student.registration.repository.Course;
+import com.student.registration.repository.CourseRepository;
+import com.student.registration.repository.StudentRepository;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 

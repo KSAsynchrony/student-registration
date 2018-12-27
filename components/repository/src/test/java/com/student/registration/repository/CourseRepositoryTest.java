@@ -1,7 +1,7 @@
-package com;
+package com.student.registration.repository;
 
-import com.student.registration.course.Course;
-import com.student.registration.course.CourseRepository;
+import com.student.registration.repository.Course;
+import com.student.registration.repository.CourseRepository;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;

@@ -1,27 +1,16 @@
-package com.student.registration.student;
+package com.student.registration.repository;
 
-import java.util.List;
 import java.util.Objects;
 
-public class Student {
-    private Long id;
+public class StudentRegistration {
     private String firstName;
     private String lastName;
-    private List<Long> courses;
+    private String courses;
 
-    public Student(Long id, String firstName, String lastName, List<Long> courses) {
-        this.id = id;
+    public StudentRegistration(String firstName, String lastName, String courses) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.courses = courses;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public String getFirstName() {
@@ -40,11 +29,11 @@ public class Student {
         this.lastName = lastName;
     }
 
-    public List<Long> getCourses() {
+    public String getCourses() {
         return courses;
     }
 
-    public void setCourses(List<Long> courses) {
+    public void setCourses(String courses) {
         this.courses = courses;
     }
 
@@ -52,15 +41,14 @@ public class Student {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Student student = (Student) o;
-        return Objects.equals(id, student.id) &&
-                Objects.equals(firstName, student.firstName) &&
-                Objects.equals(lastName, student.lastName) &&
-                Objects.equals(courses, student.courses);
+        StudentRegistration that = (StudentRegistration) o;
+        return Objects.equals(firstName, that.firstName) &&
+                Objects.equals(lastName, that.lastName) &&
+                Objects.equals(courses, that.courses);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, firstName, lastName, courses);
+        return Objects.hash(firstName, lastName, courses);
     }
 }

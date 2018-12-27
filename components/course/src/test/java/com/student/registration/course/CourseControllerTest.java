@@ -1,14 +1,14 @@
-package com;
+package com.student.registration.course;
 
-import com.student.registration.course.Course;
+import com.student.registration.repository.Course;
 import com.student.registration.course.CourseController;
-import com.student.registration.course.CourseRepository;
+import com.student.registration.repository.CourseRepository;
+import com.student.registration.repository.Student;
+import com.student.registration.repository.StudentRepository;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.ui.ModelMap;
-import com.student.registration.student.Student;
-import com.student.registration.student.StudentRepository;
 
 import java.util.ArrayList;
 import java.util.List;

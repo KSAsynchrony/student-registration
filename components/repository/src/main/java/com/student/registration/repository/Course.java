@@ -1,4 +1,4 @@
-package com.student.registration.course;
+package com.student.registration.repository;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,11 +1,11 @@
-package com;
+package com.student.registration.repository;
 
-import com.student.registration.course.CourseRepository;
+import com.student.registration.repository.CourseRepository;
+import com.student.registration.repository.Student;
+import com.student.registration.repository.StudentRegistration;
+import com.student.registration.repository.StudentRepository;
 import org.junit.Before;
 import org.junit.Test;
-import com.student.registration.student.Student;
-import com.student.registration.student.StudentRegistration;
-import com.student.registration.student.StudentRepository;
 
 import java.util.Arrays;
 import java.util.List;

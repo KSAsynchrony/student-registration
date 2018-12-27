@@ -1,8 +1,7 @@
 package com.student.registration.repository;
 
-import com.student.registration.course.CourseRepository;
 import org.springframework.stereotype.Service;
-import org.thymeleaf.util.StringUtils;
+import org.springframework.util.StringUtils;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -43,7 +42,7 @@ public class StudentRepository extends HashMap<Long, Student> {
 
     private List<Long> getCourses(StudentRegistration registration) {
         List<Long> courses = new LinkedList<>();
-        for (String course : StringUtils.split(registration.getCourses(), ",")) {
+        for (String course : registration.getCourses().split(",")) {
             courses.add(Long.parseLong(course));
         }
         return courses;

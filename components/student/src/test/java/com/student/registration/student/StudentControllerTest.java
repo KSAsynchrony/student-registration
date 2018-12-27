@@ -1,5 +1,6 @@
-package com;
+package com.student.registration.student;
 
+import com.student.registration.repository.StudentRepository;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -7,10 +8,9 @@ import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.*;
 
 import org.springframework.ui.ModelMap;
-import com.student.registration.student.Student;
+import com.student.registration.repository.Student;
 import com.student.registration.student.StudentController;
-import com.student.registration.student.StudentRegistration;
-import com.student.registration.student.StudentRepository;
+import com.student.registration.repository.StudentRegistration;
 
 import java.util.Arrays;
 import java.util.List;

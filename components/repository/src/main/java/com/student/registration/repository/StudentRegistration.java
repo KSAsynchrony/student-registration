@@ -7,6 +7,10 @@ public class StudentRegistration {
     private String lastName;
     private String courses;
 
+    public StudentRegistration(){
+
+    }
+
     public StudentRegistration(String firstName, String lastName, String courses) {
         this.firstName = firstName;
         this.lastName = lastName;

@@ -34,7 +34,7 @@ subprojects {
 //        compile "org.slf4j:slf4j-api:1.7.10"
 //
 //        compile("org.springframework.boot:spring-boot-starter-web")
-//        compile("org.springframework.boot:spring-boot-starter-thymeleaf")
+         // compile("org.springframework.boot:spring-boot-starter-thymeleaf")
 //        compile("org.springframework.boot:spring-boot-devtools")
 //        testCompile("org.springframework.boot:spring-boot-starter-test")
 

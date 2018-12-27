@@ -9,6 +9,9 @@ public class Student {
     private String lastName;
     private List<Long> courses;
 
+    public Student(){
+
+    }
     public Student(Long id, String firstName, String lastName, List<Long> courses) {
         this.id = id;
         this.firstName = firstName;

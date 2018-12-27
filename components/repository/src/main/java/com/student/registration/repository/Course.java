@@ -10,6 +10,10 @@ public class Course {
     private String courseName;
     private List<Long> studentIDs = new ArrayList<>();
 
+    public Course(){
+
+    }
+
     public Course(Long courseId, String courseName){
         this.courseId = courseId;
         this.courseName = courseName;

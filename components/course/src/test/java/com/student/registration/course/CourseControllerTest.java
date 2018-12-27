@@ -1,7 +1,6 @@
 package com.student.registration.course;
 
 import com.student.registration.repository.Course;
-import com.student.registration.course.CourseController;
 import com.student.registration.repository.CourseRepository;
 import com.student.registration.repository.Student;
 import com.student.registration.repository.StudentRepository;

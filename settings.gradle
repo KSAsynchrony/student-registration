@@ -1,6 +1,7 @@
 rootProject.name = "student-registration"
 
-include "applications:main-application"
+include "applications:course-server"
+include "applications:student-server"
 
 include "components:course"
 include "components:student"

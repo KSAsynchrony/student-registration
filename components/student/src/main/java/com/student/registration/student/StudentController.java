@@ -3,23 +3,27 @@ package com.student.registration.student;
 import com.student.registration.repository.Student;
 import com.student.registration.repository.StudentRegistration;
 import com.student.registration.repository.StudentRepository;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Collection;
 
-@Controller()
+@Controller
 public class StudentController {
 
-    StudentRepository studentRepository;
+    @Value("${course.api.url}")
+    String courseApi;
 
+    StudentRepository studentRepository;
     public StudentController(StudentRepository studentRepository) {
         this.studentRepository = studentRepository;
     }
 
     @GetMapping(value = "/createStudent")
-    public String createStudent() {
+    public String createStudent(ModelMap modelMap) {
+        modelMap.put("courseAPi", courseApi);
         return "createStudent";
     }
 

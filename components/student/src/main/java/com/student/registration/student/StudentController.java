@@ -1,56 +1,42 @@
 package com.student.registration.student;
 
-import com.student.registration.repository.Student;
-import com.student.registration.repository.StudentRegistration;
-import com.student.registration.repository.StudentRepository;
-import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Collection;
+import java.util.Set;
 
 @Controller
 public class StudentController {
-
-    @Value("${course.api.url}")
-    String courseApi;
 
     StudentRepository studentRepository;
     public StudentController(StudentRepository studentRepository) {
         this.studentRepository = studentRepository;
     }
 
-    @GetMapping(value = "/createStudent")
-    public String createStudent(ModelMap modelMap) {
-        modelMap.put("courseAPi", courseApi);
-        return "createStudent";
+    @GetMapping(value = "/allStudents")
+    public ResponseEntity<Set<Student>> getAllStudents() {
+        return new ResponseEntity(studentRepository.values(), HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/createStudent", method = RequestMethod.POST)
-    public String createStudent(@ModelAttribute("com/student/registration/student") StudentRegistration studentRegistration,
-                                ModelMap model) {
-        model.addAttribute("id", studentRepository.addStudent(studentRegistration));
-        model.addAttribute("firstName", studentRegistration.getFirstName());
-        model.addAttribute("lastName", studentRegistration.getLastName());
-        return "studentCreateSuccess";
+    @GetMapping(value = "/getStudentById/{id}")
+    public ResponseEntity<Student> getStudentById(@PathVariable Long id) {
+        return new ResponseEntity(studentRepository.get(id), HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/getStudent")
-    public String getStudentById(@RequestParam(name = "id", required = true, defaultValue = "0") Long id,
-                                 ModelMap model) {
-        Student returnedStudent = studentRepository.get(id);
-
-        model.addAttribute("id", id);
-        model.addAttribute("firstName", returnedStudent.getFirstName());
-        model.addAttribute("lastName", returnedStudent.getLastName());
-        return "studentLookup";
+    @PostMapping(value = "/createStudent")
+    public ResponseEntity<Student> createStudent(@RequestBody Student student) {
+        return new ResponseEntity(studentRepository.addStudent(student), HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/allStudents")
-    public String getAllStudents(ModelMap model) {
-        Collection<Student> students = studentRepository.values();
-        model.addAttribute("students", students);
-        return "allStudents";
+    @PostMapping(value = "/editStudent")
+    public ResponseEntity<Student> editStudent(@RequestBody Student student) {
+        return new ResponseEntity(studentRepository.put(student.getId(), student), HttpStatus.OK);
+    }
+
+    @DeleteMapping(value = "/deleteStudent/{id}")
+    public ResponseEntity<Student> createStudent(@PathVariable long id) {
+        return new ResponseEntity(studentRepository.remove(id), HttpStatus.OK);
     }
 }

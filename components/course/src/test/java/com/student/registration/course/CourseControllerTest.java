@@ -4,10 +4,7 @@ import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import org.mockito.Mock;
-import org.springframework.ui.ModelMap;
 
-import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -19,16 +16,15 @@ public class CourseControllerTest {
     List<Course> courseList;
 
     //Mocks
-    CourseRepository courseRepository;
+    CourseRepository courseRepository = mock(CourseRepository.class);
 
     @Before
     public void setUp() {
-        courseRepository = mock(CourseRepository.class);
         courseList = new LinkedList<>();
         courseList.add(new Course(null, "Maths"));
         courseList.add(new Course(null, "Science"));
         courseList.add(new Course(null, "Literature"));
-        when(courseRepository.getAllCourses()).thenReturn(courseList);
+
         courseController = new CourseController(courseRepository);
     }
 
@@ -39,6 +35,7 @@ public class CourseControllerTest {
 
     @Test
     public void testAllCourses() {
+        when(courseRepository.getAllCourses()).thenReturn(courseList);
         Assert.assertEquals(courseList, courseController.getAllCourses());
         verify(courseRepository).getAllCourses();
     }

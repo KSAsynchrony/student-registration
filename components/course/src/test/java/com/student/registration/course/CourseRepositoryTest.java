@@ -1,18 +1,13 @@
 package com.student.registration.course;
 
-import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
 
 public class CourseRepositoryTest {
     CourseRepository courseRepository;
-
-
 
     @Before
     public void setup() {

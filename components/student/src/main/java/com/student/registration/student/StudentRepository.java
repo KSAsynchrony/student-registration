@@ -7,19 +7,8 @@ import java.util.*;
 @Service
 public class StudentRepository extends HashMap<Long, Student> {
 
-
     public StudentRepository() {
 
-    }
-
-    public List<Student> getAll(List<Long> studentIDs) {
-        List<Student> students = new ArrayList<>();
-        for (Long id : studentIDs) {
-            if (get(id) != null) {
-                students.add(get(id));
-            }
-        }
-        return students;
     }
 
     public Student addStudent(Student student) {

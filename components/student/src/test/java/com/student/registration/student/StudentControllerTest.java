@@ -1,76 +1,91 @@
-//package com.student.registration.student;
-//
-//import org.junit.Before;
-//import org.junit.Test;
-//
-//import static org.junit.Assert.assertEquals;
-//import static org.mockito.Mockito.*;
-//
-//import org.springframework.ui.ModelMap;
-//
-//import java.util.Arrays;
-//import java.util.List;
-//
-//public class StudentControllerTest {
-//    StudentRepository studentRepositoryMock = mock(StudentRepository.class);
-//    ModelMap model;
-//
-//    Student kerim;
-//    Student john;
-//    Student dave;
-//
-//    StudentController studentController;
-//
-//    @Before
-//    public void init() {
-//        studentController = new StudentController(studentRepositoryMock);
-//        model = new ModelMap();
-//
-//        kerim = new Student(0l, "Kerim", "Strikovic", Arrays.asList(1l, 2l, 3l));
-//        john = new Student(1l, "John", "Doe", Arrays.asList(1l, 3l));
-//        dave = new Student(2l, "Dave", "Blatt", Arrays.asList(3l));
-//
-//    }
-//
-//    @Test
-//    public void testGreeting() {
-//        assertEquals("createStudent", studentController.createStudent(new ModelMap()));
-//    }
-//
-//    @Test
-//    public void testPostCreateStudent() {
-//        StudentRegistration registration = new StudentRegistration("Kerim", "Strikovic", "1,2");
-//
-//        when(studentRepositoryMock.addStudent(registration)).thenReturn(0l);
-//
-//        String returnedPage = studentController.createStudent(registration, model);
-//
-//        assertEquals("studentCreateSuccess", returnedPage);
-//        assertEquals(0l, model.get("id"));
-//        assertEquals("Kerim", model.get("firstName"));
-//        assertEquals("Strikovic", model.get("lastName"));
-//    }
-//
-//    @Test
-//    public void testGetStudentById() {
-//        when(studentRepositoryMock.get(0l)).thenReturn(kerim);
-//
-//        String returnedPage = studentController.getStudentById(0l, model);
-//
-//        assertEquals("studentLookup", returnedPage);
-//        assertEquals(0l, model.get("id"));
-//        assertEquals("Kerim", model.get("firstName"));
-//        assertEquals("Strikovic", model.get("lastName"));
-//    }
-//
-//    @Test
-//    public void testGetAllStudents() {
-//        List<Student> expectedList = Arrays.asList(kerim, dave);
-//        when(studentRepositoryMock.values()).thenReturn(expectedList);
-//
-//        String returnedPage = studentController.getAllStudents(model);
-//
-//        assertEquals("allStudents", returnedPage);
-//        assertEquals(Arrays.asList(kerim, dave), model.get("students"));
-//    }
-//}
+package com.student.registration.student;
+
+import org.junit.After;
+import org.junit.Assert;
+import org.junit.Before;
+import org.junit.Test;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Set;
+
+import static org.mockito.Mockito.*;
+
+public class StudentControllerTest {
+
+    StudentController studentController;
+    List<Student> students;
+
+    //Mocks
+    StudentRepository studentRepositoryMock = mock(StudentRepository.class);
+
+    @Before
+    public void init() {
+        students = new LinkedList<>();
+        students.add(new Student(0l, "Kerim", "Strikovic"));
+        students.add(new Student(1l, "John", "Doe"));
+        students.add(new Student(2l, "Dave", "Blatt"));
+
+        studentController = new StudentController(studentRepositoryMock);
+    }
+
+    @After
+    public void asssertNoMoreInteractions() {
+        verifyNoMoreInteractions(studentRepositoryMock);
+    }
+
+    @Test
+    public void testAllStudents() {
+        ResponseEntity<Set<Student>> expectedResponse;
+        expectedResponse = new ResponseEntity(students, HttpStatus.OK);
+
+        when(studentRepositoryMock.values()).thenReturn(students);
+        Assert.assertEquals(expectedResponse, studentController.getAllStudents());
+        verify(studentRepositoryMock).values();
+    }
+
+    @Test
+    public void testGetStudentById() {
+        ResponseEntity<Student> expectedResponse;
+        expectedResponse = new ResponseEntity(new Student(0l, "Kerim", "Strikovic"), HttpStatus.OK);
+
+        when(studentRepositoryMock.get(0l)).thenReturn(new Student(0l, "Kerim", "Strikovic"));
+        Assert.assertEquals(expectedResponse, studentController.getStudentById(0l));
+        verify(studentRepositoryMock).get(0l);
+    }
+
+    @Test
+    public void testCreateStudent() {
+        ResponseEntity<Student> expectedResponse;
+        expectedResponse = new ResponseEntity(new Student(3l, "John", "Lemon"), HttpStatus.OK);
+
+        Student studentToCreate = new Student(3l, "John", "Lemon");
+        when(studentRepositoryMock.addStudent(new Student(3l, "John", "Lemon"))).thenReturn(studentToCreate);
+        Assert.assertEquals(expectedResponse, studentController.createStudent(studentToCreate));
+        verify(studentRepositoryMock).addStudent(studentToCreate);
+    }
+
+    @Test
+    public void testEditStudent() {
+        ResponseEntity<Student> expectedResponse;
+        expectedResponse = new ResponseEntity(new Student(1l, "Johnson", "Doe"), HttpStatus.OK);
+
+        Student studentToEdit = new Student(1l, "Johnson", "Doe");
+        when(studentRepositoryMock.put(1l, new Student(1l, "Johnson", "Doe"))).thenReturn(studentToEdit);
+        Assert.assertEquals(expectedResponse, studentController.editStudent(studentToEdit));
+        verify(studentRepositoryMock).put(1l, studentToEdit);
+    }
+
+    @Test
+    public void testDeleteStudent() {
+        ResponseEntity<Student> expectedResponse;
+        expectedResponse = new ResponseEntity(new Student(1l, "John", "Doe"), HttpStatus.OK);
+
+        Student studentToDelete = new Student(1l, "John", "Doe");
+        when(studentRepositoryMock.remove(1l)).thenReturn(studentToDelete);
+        Assert.assertEquals(expectedResponse, studentController.deleteStudent(1l));
+        verify(studentRepositoryMock).remove(1l);
+    }
+}

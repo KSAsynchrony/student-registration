@@ -7,18 +7,16 @@
 <body>
 <h2>Edit Student</h2>
 
-<form action="#" th:action="@{/editStudent}" method="post" th:object="${student}">
+<form action="#" th:action="@{/editCourse}" method="post" th:object="${course}">
     ID:<br/>
     <input type="text" name="id" th:field="*{id}" disabled="true"/><br/>
-    First name:<br/>
-    <input type="text" name="firstName" th:field="*{firstName}"/><br/>
-    Last name:<br/>
-    <input type="text" name="lastName" th:field="*{lastName}"/><br/>
+    Name:<br/>
+    <input type="text" name="firstName" th:field="*{courseName}"/><br/>
 
     <input type="submit" value="Submit"/>
 </form>
 
 <br/>
-<a href="/allStudents">Home</a><br/>
+<a href="/allCOurses">Home</a><br/>
 </body>
 </html>

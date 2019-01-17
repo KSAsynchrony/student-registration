@@ -2,7 +2,9 @@ package com.student.registration.course;
 
 import org.springframework.stereotype.Service;
 
-import java.util.*;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
 
 @Service
 public class CourseRepository {
@@ -20,7 +22,7 @@ public class CourseRepository {
 
         Course newCourse;
         newCourse = new Course(findNextId(), course.getCourseName());
-        courseMap.put(newCourse.getCourseId(), newCourse);
+        courseMap.put(newCourse.getId(), newCourse);
         return newCourse;
     }
 
@@ -32,24 +34,15 @@ public class CourseRepository {
         return courseMap.size() == 0 ? 1l : courseMap.size()+1l;
     }
 
-    public void linkStudentWithCourse(List<Long> courseIds, long studentId){
-        for(Long courseId: courseIds){
-            Course course = courseMap.get(courseId);
-            course.getStudentIDs().add(studentId);
-            courseMap.put(courseId, course);
-        }
-    }
-
-    public List<Long> getStudentIdsForCourse(long courseId){
-        Course course = courseMap.get(courseId);
-        return course != null ? course.getStudentIDs() : null;
-    }
-
     public Collection<Course> getAllCourses() {
         return courseMap.values();
     }
 
-    public Set<Long> getAllCourseIDs() {
-        return courseMap.keySet();
+    public Course editCourse(Course course) {
+        return courseMap.put(course.getId(), course);
+    }
+
+    public Course delete(long courseId) {
+        return courseMap.remove(courseId);
     }
 }

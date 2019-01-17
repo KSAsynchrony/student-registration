@@ -1,30 +1,27 @@
 package com.student.registration.course;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
 
 public class Course {
 
-    private Long courseId;
+    private Long id;
     private String courseName;
-    private List<Long> studentIDs = new ArrayList<>();
 
     public Course(){
 
     }
 
-    public Course(Long courseId, String courseName){
-        this.courseId = courseId;
+    public Course(Long id, String courseName){
+        this.id = id;
         this.courseName = courseName;
     }
 
-    public long getCourseId() {
-        return courseId;
+    public Long getId() {
+        return id;
     }
 
-    public void setCourseId(Long courseId) {
-        this.courseId = courseId;
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getCourseName() {
@@ -35,25 +32,17 @@ public class Course {
         this.courseName = courseName;
     }
 
-    public List<Long> getStudentIDs() {
-        return studentIDs;
-    }
-
-    public void setStudentIDs(List<Long> studentIDs) {
-        this.studentIDs = studentIDs;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Course course = (Course) o;
-        return courseId.equals(course.courseId) &&
+        return id.equals(course.id) &&
                 courseName.equals(course.courseName);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(courseId, courseName);
+        return Objects.hash(id, courseName);
     }
 }

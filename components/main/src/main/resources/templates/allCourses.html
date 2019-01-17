@@ -8,11 +8,14 @@
 <h2>All Courses</h2>
 
 <th th:each="course :${courses}">
-    <span th:text="'Id: ' + ${course.courseId}" /><br/>
+    <span th:text="'Id: ' + ${course.id}" /><br/>
     <span th:text="'Course Name: ' + ${course.courseName}" /><br/>
+    <a th:href="'/editCourse/' + ${course.id}">Edit</a><br/>
+    <a th:href="'/deleteCourse/' + ${course.id}">Delete</a><br/>
     <br/>
-
 </th>
+<br/>
+<a href="/addCourse">Add Course</a><br/>
 <br/>
 <a href="/">Home</a><br/>
 </body>

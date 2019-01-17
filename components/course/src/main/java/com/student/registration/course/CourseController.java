@@ -1,22 +1,12 @@
 package com.student.registration.course;
 
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.client.RestTemplate;
 
-import java.util.Set;
+import java.util.Collection;
 
 @Controller
 public class CourseController {
-
-    @Value("${student.api.url")
-    private String studentApi;
-
-    RestTemplate restTemplate = new RestTemplate();
 
     private CourseRepository courseRepository;
 
@@ -24,44 +14,43 @@ public class CourseController {
         this.courseRepository = courseRepository;
     }
 
-    @GetMapping("/createCourse")
-    public String getMapping(){
-        return "insertCourse";
+    @GetMapping("/allCourses")
+    @ResponseBody
+    public Collection<Course> getAllCourses() {
+        return courseRepository.getAllCourses();
     }
 
-    @PostMapping("/createCourse")
-    public String createCourse(@ModelAttribute("com/student/registration/course") Course course, ModelMap modelMap){
-        Course newCourse = courseRepository.insertCourse(course);
-        modelMap.addAttribute("courseId", newCourse.getCourseId());
-        modelMap.addAttribute("courseName", newCourse.getCourseName());
-        return "courseSuccess";
-    }
-
-    @GetMapping("/lookupCourse")
-    public String lookupCourse(@RequestParam long courseId, ModelMap modelMap) throws Exception {
-        Course course = courseRepository.findCourse(courseId);
+    @GetMapping("/lookupCourse/{id}")
+    @ResponseBody
+    public Course lookupCourse(@PathVariable long id) throws Exception {
+        Course course = courseRepository.findCourse(id);
         if(course != null){
-            modelMap.addAttribute("courseId", course.getCourseId());
-            modelMap.addAttribute("courseName", course.getCourseName());
+            return course;
         }else{
             throw new Exception("Course not found");
         }
-        return "courseLookup";
     }
 
-    @GetMapping("/allCourses")
-    public String getAllCourses(ModelMap modelMap) {
-        modelMap.addAttribute("courses", courseRepository.getAllCourses());
-        return "allCourses";
+    @PostMapping("/createCourse")
+    @ResponseBody
+    public Course createCourse(@RequestBody Course course){
+        return courseRepository.insertCourse(course);
     }
 
-    @GetMapping(value = "/allCourseIDs")
-    public ResponseEntity<Set<Long>> getAllStudentIds() {
-        return new ResponseEntity(courseRepository.getAllCourseIDs(), HttpStatus.OK);
+    @PostMapping("/editCourse")
+    @ResponseBody
+    public Course editCourse(@RequestBody Course course){
+        return courseRepository.editCourse(course);
     }
 
-    @GetMapping(value = "/getCourseObject")
-    public ResponseEntity<Course> getStudentById(Long id) {
-        return new ResponseEntity(courseRepository.findCourse(id), HttpStatus.OK);
+    @DeleteMapping("/deleteCourse/{id}")
+    @ResponseBody
+    public Course deleteCourse(@PathVariable long id) throws Exception {
+        Course course = courseRepository.delete(id);
+        if(course != null){
+            return course;
+        }else{
+            throw new Exception("Course not found");
+        }
     }
 }

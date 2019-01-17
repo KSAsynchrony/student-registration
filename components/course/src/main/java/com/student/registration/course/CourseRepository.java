@@ -9,17 +9,13 @@ import java.util.Map;
 @Service
 public class CourseRepository {
 
-    private static Map<Long, Course> courseMap = new HashMap<>();
+    private static Map<Long, Course> courseMap;
 
-
-    static{
-        courseMap.put(1l, new Course(1l, "Maths"));
-        courseMap.put(2l, new Course(2l, "Science"));
-        courseMap.put(3l, new Course(3l, "Literature"));
+    public CourseRepository() {
+        courseMap = new HashMap<>();
     }
 
     public Course insertCourse(Course course){
-
         Course newCourse;
         newCourse = new Course(findNextId(), course.getCourseName());
         courseMap.put(newCourse.getId(), newCourse);

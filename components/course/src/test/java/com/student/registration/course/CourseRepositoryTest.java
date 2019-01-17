@@ -1,5 +1,6 @@
 package com.student.registration.course;
 
+import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -11,49 +12,41 @@ import java.util.List;
 public class CourseRepositoryTest {
     CourseRepository courseRepository;
 
+
+
     @Before
     public void setup() {
         courseRepository = new CourseRepository();
-    }
-
-
-    @Test
-    public void testCreateCourse() {
-        Course course = new Course(null, "testCourse");
-        Course expected = new Course(4l, "testCourse");
-        Course actual = courseRepository.insertCourse(course);
-        Assert.assertEquals(expected, actual);
+        courseRepository.insertCourse(new Course(null, "Maths"));
+        courseRepository.insertCourse(new Course(null, "Science"));
+        courseRepository.insertCourse(new Course(null, "Literature"));
     }
 
     @Test
-    public void testFindCourse() {
+    public void testInsert() {
+        Course courseToInsert = new Course(null, "testCourse");
+        Course expected = new Course(4l, "testCourse");;
+        Assert.assertEquals(expected, courseRepository.insertCourse(courseToInsert));
+    }
+
+    @Test
+    public void testFind() {
         Course expected = new Course(1l, "Maths");
         Course actual = courseRepository.findCourse(1l);
-        Assert.assertNotNull(actual);
         Assert.assertEquals(expected, actual);
     }
 
     @Test
-    public void testLinkSutdentWithCourse() {
-        List<Long> courseIds = new ArrayList<>();
-        courseIds.add(1l);
-        courseIds.add(2l);
-
-//        courseRepository.linkStudentWithCourse(courseIds, 111l);
-//
-//        List<Long> studentIdsForCourse1 = courseRepository.getStudentIdsForCourse(1l);
-//        List<Long> studentIdsForCourse2 = courseRepository.getStudentIdsForCourse(2l);
-
-//        Assert.assertTrue(studentIdsForCourse1.contains(111l));
-//        Assert.assertTrue(studentIdsForCourse2.contains(111l));
+    public void testGetAll() {
+        Collection<Course> courses = courseRepository.getAllCourses();
+        Assert.assertTrue(courses.size() == 3);
     }
 
     @Test
-    public void testGetAllCourses() {
-
-        Collection<Course> courses = courseRepository.getAllCourses();
-
-        Assert.assertTrue(courses.size() == 3);
+    public void testDelete() {
+        Course deletedCourse = new Course(1l, "Maths");
+        Assert.assertEquals(deletedCourse, courseRepository.delete(1l));
+        Assert.assertEquals(null, courseRepository.findCourse(1l));
     }
 
 }

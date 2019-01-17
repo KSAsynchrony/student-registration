@@ -1,70 +1,83 @@
 package com.student.registration.course;
 
+import org.junit.After;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import org.mockito.Mock;
 import org.springframework.ui.ModelMap;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 public class CourseControllerTest {
 
-    CourseRepository courseRepository;
-
     CourseController courseController;
+    List<Course> courseList;
 
-    ModelMap modelMap;
+    //Mocks
+    CourseRepository courseRepository;
 
     @Before
     public void setUp() {
         courseRepository = mock(CourseRepository.class);
+        courseList = new LinkedList<>();
+        courseList.add(new Course(null, "Maths"));
+        courseList.add(new Course(null, "Science"));
+        courseList.add(new Course(null, "Literature"));
+        when(courseRepository.getAllCourses()).thenReturn(courseList);
         courseController = new CourseController(courseRepository);
-        modelMap = new ModelMap();
+    }
+
+    @After
+    public void assertNoMoreInteractions() {
+        verifyNoMoreInteractions(courseRepository);
     }
 
     @Test
-    public void testGetMapping() {
-//        Assert.assertTrue("insertCourse".equals(courseController.getMapping()));
+    public void testAllCourses() {
+        Assert.assertEquals(courseList, courseController.getAllCourses());
+        verify(courseRepository).getAllCourses();
+    }
+
+    @Test
+    public void lookupCourse() throws Exception {
+        Course expectedCourse = new Course(1l, "Maths");
+        when(courseRepository.findCourse(1l)).thenReturn(expectedCourse);
+
+        Assert.assertEquals(expectedCourse, courseController.lookupCourse(1l));
+        verify(courseRepository).findCourse(1l);
     }
 
     @Test
     public void testCreateCourse() {
         Course course = new Course(null, "testCourse");
+        Course returnedCourse = new Course(4l, "testCourse");
+        when(courseRepository.insertCourse(course)).thenReturn(returnedCourse);
 
-        when(courseRepository.insertCourse(course)).thenReturn(new Course(4l, "testCourse"));
-
-//        String result = courseController.createCourse(course, modelMap);
-//
-//        Assert.assertTrue("courseSuccess".equals(result));
-//        Assert.assertTrue("testCourse".equals(modelMap.get("courseName")));
+        Assert.assertEquals(returnedCourse, courseController.createCourse(course));
+        verify(courseRepository).insertCourse(course);
     }
 
     @Test
-    public void testFindCourse() throws Exception {
+    public void testEditCourse() {
+        Course editedCourse = new Course(1l, "testCourse");
+        when(courseRepository.editCourse(editedCourse)).thenReturn(editedCourse);
 
-        when(courseRepository.findCourse(1l)).thenReturn(new Course(1l, "Maths"));
-
-//        String result = courseController.lookupCourse(1, modelMap);
-//
-//        Assert.assertTrue("courseLookup".equals(result));
-//        Assert.assertTrue("Maths".equals(modelMap.get("courseName")));
-//        Assert.assertTrue(modelMap.get("courseId").equals(1l));
+        Assert.assertEquals(editedCourse, courseController.editCourse(editedCourse));
+        verify(courseRepository).editCourse(editedCourse);
     }
 
     @Test
-    public void testGetAllCourses() {
-        Course course = new Course(1l, "Maths");
-        List<Course> courses = new ArrayList<>();
-        courses.add(course);
+    public void testDeleteCourse() throws Exception{
+        Course deletedCourse = new Course(1l, "Maths");
+        when(courseRepository.delete(1l)).thenReturn(deletedCourse);
 
-        when(courseRepository.getAllCourses()).thenReturn(courses);
-
-//        String result = courseController.getAllCourses(modelMap);
-//
-//        Assert.assertTrue("allCourses".equals(result));
-//        Assert.assertTrue(courses.equals(modelMap.get("courses")));
+        Assert.assertEquals(deletedCourse, courseController.deleteCourse(1l));
+        verify(courseRepository).delete(1l);
     }
+
 }

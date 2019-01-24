@@ -42,18 +42,4 @@ public class Course {
                 "Customer[id=%d, courseName='%s']",
                 id, courseName);
     }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Course course = (Course) o;
-        return id.equals(course.id) &&
-                courseName.equals(course.courseName);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, courseName);
-    }
 }

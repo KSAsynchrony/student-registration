@@ -2,6 +2,7 @@ package com.student.registration.course;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.*;
 
@@ -31,12 +32,11 @@ public class CourseRepository {
     }
 
     public Course editCourse(Course course) {
-        // TODO[sql-data]: implement editCourse()
-        return new Course();
+        return courseCrudRepository.save(course);
     }
 
-    public void delete(long courseId) {
-        // TODO[sql-data]: debug delete()
+    @Transactional
+    public void delete(Long courseId) {
         courseCrudRepository.deleteById(courseId);
     }
 }

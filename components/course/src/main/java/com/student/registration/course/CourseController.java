@@ -46,11 +46,11 @@ public class CourseController {
     @DeleteMapping("/deleteCourse/{id}")
     @ResponseBody
     public Course deleteCourse(@PathVariable long id) throws Exception {
-        Course course = courseRepository.delete(id);
-        if(course != null){
-            return course;
-        }else{
-            throw new Exception("Course not found");
+        try {
+            courseRepository.delete(id);
+            return new Course();
+        }catch (Exception e){
+            throw e;
         }
     }
 }

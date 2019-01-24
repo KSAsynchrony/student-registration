@@ -1,44 +1,42 @@
 package com.student.registration.course;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 @Service
 public class CourseRepository {
 
-    private static Map<Long, Course> courseMap;
+    CourseCrudRepository courseCrudRepository;
 
-    public CourseRepository() {
-        courseMap = new HashMap<>();
+
+    @Autowired
+    public CourseRepository(CourseCrudRepository courseCrudRepository) {
+        this.courseCrudRepository = courseCrudRepository;
     }
 
     public Course insertCourse(Course course){
-        Course newCourse;
-        newCourse = new Course(findNextId(), course.getCourseName());
-        courseMap.put(newCourse.getId(), newCourse);
-        return newCourse;
+        return courseCrudRepository.save(course);
     }
 
     public Course findCourse(long courseId){
-        return courseMap.get(courseId);
-    }
-
-    private Long findNextId(){
-        return courseMap.size() == 0 ? 1l : courseMap.size()+1l;
+        return courseCrudRepository.findById(courseId).get();
     }
 
     public Collection<Course> getAllCourses() {
-        return courseMap.values();
+        LinkedList<Course> courses = new LinkedList<>();
+        courseCrudRepository.findAll().forEach(course -> courses.add(course));
+        return courses;
     }
 
     public Course editCourse(Course course) {
-        return courseMap.put(course.getId(), course);
+        // TODO[sql-data]: implement editCourse()
+        return new Course();
     }
 
-    public Course delete(long courseId) {
-        return courseMap.remove(courseId);
+    public void delete(long courseId) {
+        // TODO[sql-data]: debug delete()
+        courseCrudRepository.deleteById(courseId);
     }
 }

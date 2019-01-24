@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.Collection;
+import java.util.List;
 import java.util.Set;
 
 public class StudentClient {
@@ -19,12 +20,12 @@ public class StudentClient {
         return restTemplate.getForEntity(studentApi + "/getStudentById/" + id, Student.class).getBody();
     }
 
-    public Set<Student> getAllStudents() {
-        return restTemplate.getForEntity(studentApi + "/allStudents", Set.class).getBody();
+    public List<Student> getAllStudents() {
+        return restTemplate.getForEntity(studentApi + "/allStudents", List.class).getBody();
     }
 
-    public Student createStudent(Student student) {
-        return restTemplate.postForEntity(studentApi + "/createStudent", student, Student.class).getBody();
+    public Integer createStudent(Student student) {
+        return restTemplate.postForEntity(studentApi + "/createStudent", student, Integer.class).getBody();
     }
 
     public void deleteStudent(Long id) {

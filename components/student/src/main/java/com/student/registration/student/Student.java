@@ -1,6 +1,5 @@
 package com.student.registration.student;
 
-import java.util.List;
 import java.util.Objects;
 
 public class Student {

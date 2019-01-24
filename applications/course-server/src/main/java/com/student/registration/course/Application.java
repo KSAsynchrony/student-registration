@@ -2,6 +2,7 @@ package com.student.registration.course;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.Bean;
 
 @SpringBootApplication
 public class Application {
@@ -10,4 +11,8 @@ public class Application {
         SpringApplication.run(Application.class, args);
     }
 
+    @Bean
+    CourseCrudRepository getRepository(CourseCrudRepository courseCrudRepository) {
+        return courseCrudRepository;
+    }
 }

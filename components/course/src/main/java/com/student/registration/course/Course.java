@@ -1,18 +1,22 @@
 package com.student.registration.course;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import java.util.Objects;
 
+@Entity
 public class Course {
 
+    @Id
+    @GeneratedValue(strategy= GenerationType.AUTO)
     private Long id;
     private String courseName;
 
-    public Course(){
+    public Course(){}
 
-    }
-
-    public Course(Long id, String courseName){
-        this.id = id;
+    public Course(String courseName){
         this.courseName = courseName;
     }
 
@@ -30,6 +34,13 @@ public class Course {
 
     public void setCourseName(String courseName) {
         this.courseName = courseName;
+    }
+
+    @Override
+    public String toString() {
+        return String.format(
+                "Customer[id=%d, courseName='%s']",
+                id, courseName);
     }
 
     @Override

@@ -17,12 +17,12 @@ public class StudentController {
 
     @GetMapping(value = "/allStudents")
     public ResponseEntity<Set<Student>> getAllStudents() {
-        return new ResponseEntity(studentRepository.values(), HttpStatus.OK);
+        return new ResponseEntity(studentRepository.getAllStudents(), HttpStatus.OK);
     }
 
     @GetMapping(value = "/getStudentById/{id}")
     public ResponseEntity<Student> getStudentById(@PathVariable Long id) {
-        return new ResponseEntity(studentRepository.get(id), HttpStatus.OK);
+        return new ResponseEntity(studentRepository.getStudentById(id), HttpStatus.OK);
     }
 
     @PostMapping(value = "/createStudent")
@@ -31,12 +31,12 @@ public class StudentController {
     }
 
     @PostMapping(value = "/editStudent")
-    public ResponseEntity<Student> editStudent(@RequestBody Student student) {
-        return new ResponseEntity(studentRepository.put(student.getId(), student), HttpStatus.OK);
+    public ResponseEntity<Integer> editStudent(@RequestBody Student student) {
+        return new ResponseEntity(studentRepository.addStudent(student), HttpStatus.OK);
     }
 
     @DeleteMapping(value = "/deleteStudent/{id}")
     public ResponseEntity<Student> deleteStudent(@PathVariable long id) {
-        return new ResponseEntity(studentRepository.remove(id), HttpStatus.OK);
+        return new ResponseEntity(studentRepository.deleteStudent(id), HttpStatus.OK);
     }
 }

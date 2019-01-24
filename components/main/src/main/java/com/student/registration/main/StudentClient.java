@@ -28,11 +28,11 @@ public class StudentClient {
         return restTemplate.postForEntity(studentApi + "/createStudent", student, Integer.class).getBody();
     }
 
-    public void deleteStudent(Long id) {
-        restTemplate.delete(studentApi + "/deleteStudent/" + id);
+    public Integer editStudent(Student student) {
+        return restTemplate.postForEntity(studentApi + "/editStudent", student, Integer.class).getBody();
     }
 
-    public void editStudent(Student student) {
-        restTemplate.postForEntity(studentApi + "/editStudent", student, Student.class);
+    public void deleteStudent(Long id) {
+        restTemplate.delete(studentApi + "/deleteStudent/" + id);
     }
 }

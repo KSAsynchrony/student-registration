@@ -2,6 +2,7 @@ package com.student.registration.student;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.RowCallbackHandler;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Service;
 
@@ -41,10 +42,10 @@ public class StudentRepository {
     }
 
     public Student getStudentById(Long id) {
-        return jdbcTemplate.query("SELCT * FROM students " +
-                "WHERE " +
-                "firstName = ?, " +
-                "lastName= ?",
+        return jdbcTemplate.query("SELECT * FROM students " +
+                        "WHERE " +
+                        "id = ?",
+                new Object[] {id},
                 new StudentRowMapper())
                 .get(0);
     }
@@ -52,12 +53,10 @@ public class StudentRepository {
     public Integer editStudent(Student student) {
         return jdbcTemplate.update("UPDATE students SET " +
                         "firstName = ?, " +
-                        "lastName = ?, " +
+                        "lastName = ? " +
                         "WHERE " +
                         "id = ?",
-                student.getFirstName(),
-                student.getLastName(),
-                student.getId());
+                new Object[] { student.getFirstName(), student.getLastName(), student.getId() });
     }
 
     public Integer deleteStudent(Long id) {

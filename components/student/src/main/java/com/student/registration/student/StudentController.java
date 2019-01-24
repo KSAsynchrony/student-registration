@@ -32,7 +32,7 @@ public class StudentController {
 
     @PostMapping(value = "/editStudent")
     public ResponseEntity<Integer> editStudent(@RequestBody Student student) {
-        return new ResponseEntity(studentRepository.addStudent(student), HttpStatus.OK);
+        return new ResponseEntity(studentRepository.editStudent(student), HttpStatus.OK);
     }
 
     @DeleteMapping(value = "/deleteStudent/{id}")

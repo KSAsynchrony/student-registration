@@ -1,10 +1,9 @@
 package com.student.registration.main;
 
-import com.student.registration.student.Student;
+import com.student.registration.domain.Student;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.client.RestTemplate;
 
-import java.util.Collection;
 import java.util.Set;
 
 public class StudentClient {

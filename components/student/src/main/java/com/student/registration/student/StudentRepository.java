@@ -1,5 +1,6 @@
 package com.student.registration.student;
 
+import com.student.registration.domain.Student;
 import org.springframework.stereotype.Service;
 
 import java.util.*;

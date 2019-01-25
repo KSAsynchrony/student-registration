@@ -1,0 +1,22 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>All Grades for Student</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+<h2>Student Grades</h2>
+
+<span th:text="'Student Id: ' + ${studentId}" /><br/><br/>
+
+<th th:each="grade :${grades}">
+    <span th:text="'Course Id: ' + ${grade.courseId}" /><br/>
+    <span th:text="'Grade: ' + ${grade.band}" /><br/>
+    <br/>
+</th>
+<br/>
+<a href="/updateGrades/"+${studentId}>Update Grades</a><br/>
+<br/>
+<a href="/">Home</a><br/>
+</body>
+</html>

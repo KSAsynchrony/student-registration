@@ -1,4 +1,4 @@
-package com.student.registration.course;
+package com.student.registration.domain;
 
 import java.util.Objects;
 

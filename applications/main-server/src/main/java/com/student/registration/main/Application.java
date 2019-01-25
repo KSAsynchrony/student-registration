@@ -21,4 +21,6 @@ public class Application {
         return new CourseClient();
     }
 
+    @Bean
+    GradeClient getGradesClient() { return new GradeClient() ; }
 }

@@ -1,5 +1,6 @@
 package com.student.registration.course;
 
+import com.student.registration.domain.Course;
 import org.springframework.stereotype.Service;
 
 import java.util.Collection;

@@ -1,5 +1,6 @@
 package com.student.registration.student;
 
+import com.student.registration.domain.Student;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;

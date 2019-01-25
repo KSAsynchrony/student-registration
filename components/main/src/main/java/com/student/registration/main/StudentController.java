@@ -1,6 +1,6 @@
 package com.student.registration.main;
 
-import com.student.registration.student.Student;
+import com.student.registration.domain.Student;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;

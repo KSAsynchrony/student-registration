@@ -1,6 +1,7 @@
 apply from: "$projectDir/../server.gradle"
 
 dependencies{
+    compile project(":components:registration")
     compile project(":components:main")
     compile("org.springframework.boot:spring-boot-starter-thymeleaf")
 }

@@ -1,3 +1,4 @@
 dependencies {
+    compile project(":components:domain")
     compile "org.springframework:spring-web:$springVersion"
 }

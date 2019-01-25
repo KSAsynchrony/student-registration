@@ -1,6 +1,5 @@
-package com.student.registration.student;
+package com.student.registration.domain;
 
-import java.util.List;
 import java.util.Objects;
 
 public class Student {

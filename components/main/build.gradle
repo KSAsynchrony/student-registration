@@ -3,4 +3,5 @@ dependencies {
     compile project(":components:course")
     compile project(":components:student")
     compile project(":components:grades")
+    compile project(":components:registration")
 }

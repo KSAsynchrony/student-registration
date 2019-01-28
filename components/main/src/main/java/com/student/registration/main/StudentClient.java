@@ -4,6 +4,7 @@ import com.student.registration.domain.Student;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.client.RestTemplate;
 
+import java.util.List;
 import java.util.Set;
 
 public class StudentClient {
@@ -16,6 +17,10 @@ public class StudentClient {
 
     public Student getStudentById(Long id) {
         return restTemplate.getForEntity(studentApi + "/getStudentById/" + id, Student.class).getBody();
+    }
+
+    public Set<Student> getStudents(Set<Long> ids) {
+        return restTemplate.postForEntity(studentApi + "/getStudentsForIds", ids, Set.class).getBody();
     }
 
     public Set<Student> getAllStudents() {

@@ -1,0 +1,42 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Student</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+</head>
+<body>
+<span th:text="'Student Id: ' + ${student.id}"/><br/>
+<span th:text="'First Name: ' + ${student.firstName}"/><br/>
+<span th:text="'Last Name: ' + ${student.lastName}"/><br/>
+<br/>
+
+<h3>Enrolled COurses</h3>
+<table border="1" style="width:300px">
+    <tr>
+        <td>Id</td>
+        <td>Course Name</td>
+        <td></td>
+    </tr>
+    <tr th:each="course :${courses}">
+        <td>
+            <span th:text="${course.id}"/>
+        </td>
+        <td>
+            <span th:text="${course.courseName}"/>
+        </td>
+        <td>
+            <a th:href="'/dropCourse/' + ${course.id} + '/' + ${student.id}">Drop</a><br/>
+        </td>
+    </tr>
+</table>
+<br/>
+
+<br/>
+<form action="#" th:action="@{/enrollCourse}" method="get" studentId="studentId" courseId="courseId">
+    <input hidden="true" type="text" id="studentId" name="studentId" th:value="${student.id}"/><br/>
+    Course ID:<input type="text" id="courseId" name="courseId"/><br/>
+    <input type="submit" value="Enroll Course"/>
+</form>
+<a href="/">Home</a><br/>
+</body>
+</html>

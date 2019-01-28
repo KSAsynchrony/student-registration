@@ -1,7 +1,6 @@
 package com.student.registration;
 
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Service;
 
 import java.util.*;
 
@@ -68,11 +67,23 @@ public class StudentRegistrationRepository {
         courseStudentMap.remove(courseId);
     }
 
-    public List<Long> getCoursesStudentRegisteredFor(long studentId){
-       return studentCourseMap.get(studentId);
+    public Set<Long> getCoursesStudentRegisteredFor(long studentId){
+        List<Long> students = studentCourseMap.get(studentId);
+        if (students == null) {
+            return new HashSet<>();
+        } else {
+
+            return new HashSet<Long>(students);
+        }
     }
 
-    public List<Long> getRegisteredStudentsForCourse(long courseId){
-        return courseStudentMap.get(courseId);
+    public Set<Long> getRegisteredStudentsForCourse(long courseId){
+        List<Long> students = courseStudentMap.get(courseId);
+        if (students == null) {
+            return new HashSet<>();
+        } else {
+
+            return new HashSet<Long>(students);
+        }
     }
 }

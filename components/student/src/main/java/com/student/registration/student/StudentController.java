@@ -6,6 +6,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import javax.xml.ws.Response;
+import java.util.List;
 import java.util.Set;
 
 @Controller
@@ -24,6 +26,11 @@ public class StudentController {
     @GetMapping(value = "/getStudentById/{id}")
     public ResponseEntity<Student> getStudentById(@PathVariable Long id) {
         return new ResponseEntity(studentRepository.get(id), HttpStatus.OK);
+    }
+
+    @PostMapping(value = "/getStudentsForIds")
+    public ResponseEntity<Set<Student>> getStudents(@RequestBody Set<Long> ids) {
+        return new ResponseEntity(studentRepository.getAll(ids), HttpStatus.OK);
     }
 
     @PostMapping(value = "/createStudent")

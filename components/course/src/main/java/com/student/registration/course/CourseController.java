@@ -1,10 +1,14 @@
 package com.student.registration.course;
 
 import com.student.registration.domain.Course;
+import com.student.registration.domain.Student;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Collection;
+import java.util.Set;
 
 @Controller
 public class CourseController {
@@ -53,5 +57,10 @@ public class CourseController {
         }else{
             throw new Exception("Course not found");
         }
+    }
+
+    @PostMapping(value = "/getCoursesForIds")
+    public ResponseEntity<Set<Student>> getStudents(@RequestBody Set<Long> ids) {
+        return new ResponseEntity(courseRepository.getCourses(ids), HttpStatus.OK);
     }
 }

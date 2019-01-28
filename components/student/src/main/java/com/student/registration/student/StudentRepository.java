@@ -4,6 +4,7 @@ import com.student.registration.domain.Student;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 public class StudentRepository extends HashMap<Long, Student> {
@@ -31,5 +32,12 @@ public class StudentRepository extends HashMap<Long, Student> {
             }
         }
         return id;
+    }
+
+    public Set<Student> getAll(Set<Long> ids) {
+        return values().stream()
+                .filter(student ->
+                        ids.contains(student.getId()))
+                .collect(Collectors.toSet());
     }
 }

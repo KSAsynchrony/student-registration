@@ -33,4 +33,8 @@ public class CourseClient {
     public void editCourse(Course course) {
         restTemplate.postForEntity(courseApi + "/editCourse", course, Course.class);
     }
+
+    public Set<Course> getCourses(Set<Long> ids) {
+        return restTemplate.postForEntity(courseApi + "/getCoursesForIds", ids, Set.class).getBody();
+    }
 }

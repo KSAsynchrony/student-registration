@@ -2,31 +2,34 @@ package com.student.registration;
 
 
 import org.springframework.stereotype.Controller;
+import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
-@Controller
-@RequestMapping("/registration")
+@Service
 public class StudentRegistrationController {
 
-    private StudentRegistrationRepository studentRegistrationRepository;
+    private StudentRegistrationRepository studentRegistrationRepository = new StudentRegistrationRepository();
 
-    @PostMapping
-    public void addBulkRegistration(@RequestBody Map<Long, List<Long>> map){
-       studentRegistrationRepository.addRegistration(map);
-    }
+    public StudentRegistrationController() {}
 
-    @PostMapping("${studentId}")
-    public void addRegistration(long studentId, @RequestParam long courseId){
-        studentRegistrationRepository.addRegistration(studentId, courseId);
-    }
+//    @PostMapping
+//    public void addBulkRegistration(@RequestBody Map<Long, List<Long>> map){
+//       studentRegistrationRepository.addRegistration(map);
+//    }
 
-    @DeleteMapping("${studentId}")
-    public void deleteRegistration(long studentId, @RequestParam long courseId){
-        studentRegistrationRepository.deleteRegistration(studentId, courseId);
-    }
+//    @PostMapping("${studentId}")
+//    public void addRegistration(long studentId, @RequestParam long courseId){
+//        studentRegistrationRepository.addRegistration(studentId, courseId);
+//    }
+
+//    @DeleteMapping("${studentId}")
+//    public void deleteRegistration(long studentId, @RequestParam long courseId){
+//        studentRegistrationRepository.deleteRegistration(studentId, courseId);
+//    }
 
     public void deleteStudentMapping(long studentId){
         studentRegistrationRepository.deleteStudentMapping(studentId);
@@ -36,12 +39,14 @@ public class StudentRegistrationController {
         studentRegistrationRepository.deleteCourseMapping(courseId);
     }
 
-
-    public List<Long> getCoursesStudentRegisteredFor(long studentId){
+    public void addStudentCourseRelationShip(long studentId, long courseId) {
+        studentRegistrationRepository.addRegistration(studentId, courseId);
+    }
+    public Set<Long> getCoursesForStudent(long studentId){
         return studentRegistrationRepository.getCoursesStudentRegisteredFor(studentId);
     }
 
-    public List<Long> getRegisteredStudentsForCourse(long courseId){
+    public Set<Long> getStudentsForCourse(long courseId){
         return studentRegistrationRepository.getRegisteredStudentsForCourse(courseId);
     }
 }

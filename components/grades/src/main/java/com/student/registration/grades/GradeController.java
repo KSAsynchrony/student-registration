@@ -16,7 +16,6 @@ public class GradeController {
     GradeRepository gradeRepository;
 
 
-
     @PostMapping
     @ResponseBody
     public void updateGradesForStudent(@RequestBody List<Grade> grades){
@@ -32,15 +31,15 @@ public class GradeController {
         return gradeList;
     }
 
-    @DeleteMapping("${studentId}")
-    @ResponseBody
-    public void deleteGradesForStudent(@PathVariable long studentId){
-        gradeRepository.deleteGradesForStudent(studentId);
-    }
+//    @DeleteMapping("${studentId}")
+//    @ResponseBody
+//    public void deleteGradesForStudent(@PathVariable long studentId){
+//        gradeRepository.deleteGradesForStudent(studentId);
+//    }
 
-    @DeleteMapping("${courseId}")
-    @ResponseBody
-    public void deleteGradesForCourse(@PathVariable long courseId, List<Long> studentIds){
-        gradeRepository.deleteGradesForCourse(courseId, studentIds);
-    }
+//    @DeleteMapping("${courseId}")
+//    @ResponseBody
+//    public void deleteGradesForCourse(@PathVariable long courseId, List<Long> studentIds){
+//        gradeRepository.deleteGradesForCourse(courseId, studentIds);
+//    }
 }

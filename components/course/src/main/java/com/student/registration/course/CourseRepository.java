@@ -3,9 +3,8 @@ package com.student.registration.course;
 import com.student.registration.domain.Course;
 import org.springframework.stereotype.Service;
 
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 public class CourseRepository {
@@ -41,5 +40,12 @@ public class CourseRepository {
 
     public Course delete(long courseId) {
         return courseMap.remove(courseId);
+    }
+
+    public Set<Course> getCourses(Set<Long> ids) {
+        return courseMap.values()
+                .stream()
+                .filter(course -> ids.contains(course.getId()))
+                .collect(Collectors.toSet());
     }
 }

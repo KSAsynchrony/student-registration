@@ -5,17 +5,37 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 </head>
 <body>
-<h2>All Registered Students</h2>
-
-<th th:each="student :${students}">
-    <span th:text="'Id: ' + ${student.id}" /><br/>
-    <span th:text="'First Name: ' + ${student.firstName}" /><br/>
-    <span th:text="'Last Name: ' + ${student.lastName}" /><br/>
-    <a th:href="'/editStudent/' + ${student.id}">Edit</a><br/>
-    <a th:href="'/deleteStudent/' + ${student.id}">Delete</a><br/>
-    <a th:href="'/viewGrades/' + ${student.id}">Grades</a><br/>
-    <br/>
-</th>
+<h3>All Registered Students</h3>
+<table border="1">
+    <tr>
+        <td>Id</td>
+        <td>First Name</td>
+        <td>Last Name</td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr th:each="student :${students}">
+        <td>
+            <span th:text="${student.id}"/><br/>
+        </td>
+        <td>
+            <span th:text="${student.firstName}"/><br/>
+        </td>
+        <td>
+            <span th:text="${student.lastName}"/><br/>
+        </td>
+        <td>
+            <a th:href="'/student/' + ${student.id}">Courses</a><br/>
+        </td>
+        <td>
+            <a th:href="'/editStudent/' + ${student.id}">Rename</a><br/>
+        </td>
+        <td>
+            <a th:href="'/deleteStudent/' + ${student.id}">Delete</a><br/>
+        </td>
+    </tr>
+</table>
 <br/>
 <a href="/addStudent">Add a Student</a>
 <br/>

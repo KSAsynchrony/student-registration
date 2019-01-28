@@ -18,7 +18,7 @@ jobs:
       addons:
         mariadb: '10.2'
       install: skip
-      script: ./gradlew clean build
+      script: mvn clean package
       before_deploy:
         - git config --local user.name "Travis CI"
         - git config --local user.email "travis@example.com"
@@ -33,7 +33,7 @@ jobs:
       language: java
       script:
         - echo "Downloading allocations server $RELEASE_TAG"
-        - wget -P applications/allocations-server/build/libs https://github.com/$GITHUB_USERNAME/student-registration/releases/download/$RELEASE_TAG/student-registration-0.1.0.jar
+        - wget -P target https://github.com/$GITHUB_USERNAME/student-registration/releases/download/$RELEASE_TAG/student-registration-0.1.0.jar
       before_deploy:
         - cp manifest-allocations.yml manifest.yml
         - echo "Deploying allocations server $RELEASE_TAG"
@@ -44,13 +44,3 @@ jobs:
         password: $CF_PASSWORD
         organization: $CF_ORG
         space: kerim.strikovic@asynchrony.com
-    - stage: migrate
-      language: java
-      before_install:
-        - wget -q -O - https://packages.cloudfoundry.org/debian/cli.cloudfoundry.org.key | sudo apt-key add -
-        - echo "deb https://packages.cloudfoundry.org/debian stable main" | sudo tee /etc/apt/sources.list.d/cloudfoundry-cli.list
-        - sudo apt-get update
-        - sudo apt-get install cf-cli
-      script:
-        - cf login -a $CF_API_URL -u $CF_USERNAME -p $CF_PASSWORD -o $CF_ORG -s review
-        - ./gradlew cfMigrate

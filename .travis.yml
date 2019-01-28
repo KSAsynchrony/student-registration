@@ -35,8 +35,8 @@ jobs:
         - echo "Downloading allocations server $RELEASE_TAG"
         - wget -P target https://github.com/$GITHUB_USERNAME/student-registration/releases/download/$RELEASE_TAG/student-registration-0.1.0.jar
       before_deploy:
-        - cp manifest.yml manifest.yml
-        - echo "Deploying allocations server $RELEASE_TAG"
+        - cp manifest.yml
+        - echo "Deploying student registration server $RELEASE_TAG"
       deploy: &cloudfoundry
         provider: cloudfoundry
         api: $CF_API_URL

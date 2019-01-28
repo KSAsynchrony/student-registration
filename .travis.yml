@@ -1,0 +1,89 @@
+dist: trusty
+sudo: required
+notifications:
+  email: false
+env:
+  - RELEASE_TAG="release-$TRAVIS_BUILD_NUMBER"
+stages:
+  - build and publish
+  - deploy
+  - migrate
+if: tag IS blank
+
+jobs:
+  include:
+    - stage: build and publish
+      language: java
+      jdk: oraclejdk8
+      addons:
+        mariadb: '10.2'
+      install: skip
+      script: ./gradlew clean build
+      before_deploy:
+        - git config --local user.name "Travis CI"
+        - git config --local user.email "travis@example.com"
+        - git tag -f $RELEASE_TAG
+      deploy:
+        provider: releases
+        api_key: $GITHUB_OAUTH_TOKEN
+        file:
+          - "applications/student-server/build/libs/student-server.jar"
+          - "applications/course-server/build/libs/course-server.jar"
+          - "applications/main-server/build/libs/main-server.jar"
+          - "applications/grades-server/build/libs/grades-server.jar"
+        skip_cleanup: true
+    - stage: deploy
+      language: java
+      script:
+        - echo "Downloading main server $RELEASE_TAG"
+        - wget -P applications/main-server/build/libs https://github.com/$GITHUB_USERNAME/student-registration/releases/download/$RELEASE_TAG/main-server.jar
+      before_deploy:
+        - cp manifest-main.yml manifest.yml
+        - echo "Deploying main server $RELEASE_TAG"
+      deploy: &cloudfoundry
+        provider: cloudfoundry
+        api: $CF_API_URL
+        username: $CF_USERNAME
+        password: $CF_PASSWORD
+        organization: $CF_ORG
+        space: review
+    - stage: deploy
+      language: bash
+      script:
+        - echo "Downloading student server $RELEASE_TAG"
+        - wget -P applications/student-server/build/libs https://github.com/$GITHUB_USERNAME/student-registration/releases/download/$RELEASE_TAG/student-server.jar
+      before_deploy:
+        - cp manifest-student.yml manifest.yml
+        - echo "Deploying student server $RELEASE_TAG"
+      deploy:
+        <<: *cloudfoundry
+    - stage: deploy
+      language: bash
+      script:
+        - echo "Downloading course server $RELEASE_TAG"
+        - wget -P applications/course-server/build/libs https://github.com/$GITHUB_USERNAME/student-registration/releases/download/$RELEASE_TAG/course-server.jar
+      before_deploy:
+        - cp manifest-course.yml manifest.yml
+        - echo "Deploying course server $RELEASE_TAG"
+      deploy:
+        <<: *cloudfoundry
+    - stage: deploy
+      language: bash
+      script:
+        - echo "Downloading grades server $RELEASE_TAG"
+        - wget -P applications/course-server/build/libs https://github.com/$GITHUB_USERNAME/student-registration/releases/download/$RELEASE_TAG/grades-server.jar
+      before_deploy:
+        - cp manifest-grades.yml manifest.yml
+        - echo "Deploying grades server $RELEASE_TAG"
+      deploy:
+        <<: *cloudfoundry
+    - stage: migrate
+      language: java
+      before_install:
+        - wget -q -O - https://packages.cloudfoundry.org/debian/cli.cloudfoundry.org.key | sudo apt-key add -
+        - echo "deb https://packages.cloudfoundry.org/debian stable main" | sudo tee /etc/apt/sources.list.d/cloudfoundry-cli.list
+        - sudo apt-get update
+        - sudo apt-get install cf-cli
+      script:
+        - cf login -a $CF_API_URL -u $CF_USERNAME -p $CF_PASSWORD -o $CF_ORG -s review
+        - ./gradlew cfMigrate

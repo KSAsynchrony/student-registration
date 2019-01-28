@@ -1,0 +1,11 @@
+applications:
+  - name: registration-main
+    path: ./applications/main-server/build/libs/main-server.jar
+    routes:
+      - route: student-registration-main.cfapps.io
+    memory: 1G
+    instances: 1
+    env:
+      STUDENT_API_URL: http://student-registration-student.cfapps.io
+      COURSE_API_URL: http://student-registration-course.cfapps.io
+      GRADES_API_URL: http://student-registration-grades.cfapps.io

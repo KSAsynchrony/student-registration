@@ -1,0 +1,7 @@
+applications:
+  - name: registration-student
+    path: ./applications/student-server/build/libs/student-server.jar
+    routes:
+      - route: student-registration-student.cfapps.io
+    memory: 1G
+    instances: 1

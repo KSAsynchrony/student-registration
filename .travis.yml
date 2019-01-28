@@ -32,7 +32,7 @@ jobs:
     - stage: deploy
       language: java
       script:
-        - echo "Downloading allocations server $RELEASE_TAG"
+        - echo "Downloading student registration server $RELEASE_TAG"
         - wget -P target https://github.com/$GITHUB_USERNAME/student-registration/releases/download/$RELEASE_TAG/student-registration-0.1.0.jar
       before_deploy:
         - echo "Deploying student registration server $RELEASE_TAG"

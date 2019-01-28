@@ -1,0 +1,7 @@
+applications:
+  - name: student-registration
+    path: ./target/student-registration-0.1.0.jar
+    routes:
+      - route: student-registration-main.cfapps.io
+    memory: 1G
+    instances: 1

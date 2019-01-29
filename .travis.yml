@@ -43,6 +43,8 @@ jobs:
         - echo "Deploying main server $RELEASE_TAG"
       deploy: &cloudfoundry
         provider: cloudfoundry
+        on:
+          all_branches: true
         api: $CF_API_URL
         username: $CF_USERNAME
         password: $CF_PASSWORD

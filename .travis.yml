@@ -31,6 +31,9 @@ jobs:
           - "applications/main-server/build/libs/main-server.jar"
           - "applications/grades-server/build/libs/grades-server.jar"
         skip_cleanup: true
+        on:
+          all_branches: true
+          condition: $TRAVIS_BRANCH =~ ^staging|production$
     - stage: deploy
       language: java
       script:

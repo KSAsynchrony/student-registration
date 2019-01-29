@@ -1,0 +1,7 @@
+applications:
+  - name: registration-grades
+    path: ./applications/grades-server/build/libs/grades-server.jar
+    routes:
+      - route: student-registration-grades.cfapps.io
+    memory: 1G
+    instances: 1

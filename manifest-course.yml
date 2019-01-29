@@ -1,5 +1,5 @@
 applications:
-  - name: registration-course
+  - name: course-server
     path: ./applications/course-server/build/libs/course-server.jar
     routes:
       - route: student-registration-course.cfapps.io

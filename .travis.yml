@@ -45,7 +45,7 @@ jobs:
         username: $CF_USERNAME
         password: $CF_PASSWORD
         organization: $CF_ORG
-        space: kerim.strikovic@asynchrony.com
+        space: review
     - stage: deploy
       language: bash
       script:
@@ -77,4 +77,4 @@ jobs:
       deploy:
         <<: *cloudfoundry
         script:
-          - cf login -a $CF_API_URL -u $CF_USERNAME -p $CF_PASSWORD -o $CF_ORG -s kerim.strikovic@asynchrony.com
+          - cf login -a $CF_API_URL -u $CF_USERNAME -p $CF_PASSWORD -o $CF_ORG -s review

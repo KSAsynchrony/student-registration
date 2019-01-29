@@ -7,9 +7,8 @@
 <body>
 <span th:text="'Course Id: ' + ${course.id}"/><br/>
 <span th:text="'Course Name: ' + ${course.courseName}"/><br/>
-<br/>
 
-<h3>Enrolled Students</h3>
+<h2>Enrolled Students</h2>
 <table border="1" style="width:300px">
     <tr>
         <td>Id</td>
@@ -36,12 +35,13 @@
 </table>
 <br/>
 
-<br/>
 <form action="#" th:action="@{/enrollStudent}" method="get" studentId="studentId" courseId="courseId">
     <input hidden="true" type="text" id="courseId" name="courseId" th:value="${course.id}"/><br/>
     Student ID:<input type="text" id="studentId" name="studentId"/><br/>
+    <br/>
     <input type="submit" value="Enroll Student"/>
 </form>
+<br/>
 <a href="/">Home</a><br/>
 </body>
 </html>

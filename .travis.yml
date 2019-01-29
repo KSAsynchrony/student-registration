@@ -74,7 +74,7 @@ jobs:
       language: bash
       script:
         - echo "Downloading grades server $RELEASE_TAG"
-        - wget -P applications/course-server/build/libs https://github.com/$GITHUB_USERNAME/student-registration/releases/download/$RELEASE_TAG/grades-server.jar
+        - wget -P applications/grades-server/build/libs https://github.com/$GITHUB_USERNAME/student-registration/releases/download/$RELEASE_TAG/grades-server.jar
       before_deploy:
         - cp manifest-grades.yml manifest.yml
         - echo "Deploying grades server $RELEASE_TAG"

@@ -1,5 +1,5 @@
 applications:
-  - name: registration-grades
+  - name: grades-server
     path: ./applications/grades-server/build/libs/grades-server.jar
     routes:
       - route: student-registration-grades.cfapps.io

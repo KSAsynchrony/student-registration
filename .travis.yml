@@ -46,7 +46,7 @@ jobs:
         username: $CF_USERNAME
         password: $CF_PASSWORD
         organization: $CF_ORG
-        space: kerim.strikovic@asynchrony.com
+        space: review
     - stage: deploy
       language: bash
       script:

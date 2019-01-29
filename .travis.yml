@@ -33,7 +33,6 @@ jobs:
         skip_cleanup: true
         on:
           all_branches: true
-          condition: $TRAVIS_BRANCH =~ ^staging|production$
     - stage: deploy
       language: java
       script:

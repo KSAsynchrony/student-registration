@@ -1,41 +1,41 @@
 package com.student.registration.main;
 
 import com.student.registration.domain.Student;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.web.client.RestTemplate;
+import org.springframework.web.client.RestOperations;
 
-import java.util.List;
 import java.util.Set;
 
 public class StudentClient {
-    @Value("${student.api.url}")
-    String studentApi;
+    private final RestOperations restOperations;
 
-    RestTemplate restTemplate = new RestTemplate();
+    private final String studentApiUrl;
 
-    public StudentClient() {}
+    public StudentClient(RestOperations restOperations, String studentApiUrl){
+        this.restOperations = restOperations;
+        this.studentApiUrl = studentApiUrl;
+    }
 
     public Student getStudentById(Long id) {
-        return restTemplate.getForEntity(studentApi + "/getStudentById/" + id, Student.class).getBody();
+        return restOperations.getForEntity(studentApiUrl + "/getStudentById/" + id, Student.class).getBody();
     }
 
     public Set<Student> getStudents(Set<Long> ids) {
-        return restTemplate.postForEntity(studentApi + "/getStudentsForIds", ids, Set.class).getBody();
+        return restOperations.postForEntity(studentApiUrl + "/getStudentsForIds", ids, Set.class).getBody();
     }
 
     public Set<Student> getAllStudents() {
-        return restTemplate.getForEntity(studentApi + "/allStudents", Set.class).getBody();
+        return restOperations.getForEntity(studentApiUrl + "/allStudents", Set.class).getBody();
     }
 
     public Student createStudent(Student student) {
-        return restTemplate.postForEntity(studentApi + "/createStudent", student, Student.class).getBody();
+        return restOperations.postForEntity(studentApiUrl + "/createStudent", student, Student.class).getBody();
     }
 
     public void deleteStudent(Long id) {
-        restTemplate.delete(studentApi + "/deleteStudent/" + id);
+        restOperations.delete(studentApiUrl + "/deleteStudent/" + id);
     }
 
     public void editStudent(Student student) {
-        restTemplate.postForEntity(studentApi + "/editStudent", student, Student.class);
+        restOperations.postForEntity(studentApiUrl + "/editStudent", student, Student.class);
     }
 }

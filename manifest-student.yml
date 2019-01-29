@@ -5,3 +5,5 @@ applications:
       - route: student-registration-student.cfapps.io
     memory: 1G
     instances: 1
+    services:
+      - registration-service-registry

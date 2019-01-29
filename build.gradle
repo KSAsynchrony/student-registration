@@ -1,7 +1,9 @@
 buildscript {
     ext {
-        springBootVersion = "1.5.7.RELEASE"
+        springBootVersion = "2.0.4.RELEASE"
         springVersion = "4.3.8.RELEASE"
+        springCloudVersion = "Finchley.RELEASE"
+        springCloudServicesClientLibrariesVersion = "2.0.2.RELEASE"       
     }
     repositories {
         mavenCentral()
@@ -28,6 +30,7 @@ subprojects {
     }
 
     dependencies {
+        
         testCompile "junit:junit:4.12"
         testCompile "org.mockito:mockito-core:2.2.26"
         testCompile "org.assertj:assertj-core:3.8.0"

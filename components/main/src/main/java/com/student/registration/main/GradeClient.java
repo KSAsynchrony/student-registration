@@ -1,25 +1,28 @@
 package com.student.registration.main;
 
 import com.student.registration.domain.Grade;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.web.client.RestTemplate;
+import org.springframework.web.client.RestOperations;
 
 import java.util.List;
 
 public class GradeClient {
 
-    @Value("${grades.api.url}")
-    String gradesApi;
+    private final String gradesApiUrl;
 
-    RestTemplate restTemplate = new RestTemplate();
+    private final RestOperations restOperations;
+
+    public GradeClient(RestOperations restOperations, String gradesApiUrl) {
+        this.restOperations = restOperations;
+        this.gradesApiUrl = gradesApiUrl;
+    }
 
     public List<Grade> getGradesForStudent(long studentId){
-        return restTemplate.getForEntity(gradesApi+"/grades/"+studentId, List.class).getBody();
+        return this.restOperations.getForEntity(this.gradesApiUrl +"/grades/"+studentId, List.class).getBody();
     }
 
 
     public List<Grade> updateGradesForStudent(List<Grade> grades){
-        return restTemplate.postForEntity(gradesApi+"/grades", grades, List.class).getBody();
+        return this.restOperations.postForEntity(this.gradesApiUrl +"/grades", grades, List.class).getBody();
     }
 
 }

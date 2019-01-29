@@ -2,8 +2,13 @@ package com.student.registration.course;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
+import org.springframework.web.client.RestOperations;
 
-@SpringBootApplication
+@SpringBootApplication(exclude = {
+        org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration.class}
+)
+@EnableEurekaClient
 public class Application {
 
     public static void main(String[] args) {

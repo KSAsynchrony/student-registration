@@ -4,6 +4,7 @@ include "applications:course-server"
 include "applications:student-server"
 include "applications:main-server"
 include "applications:grades-server"
+include "platform-services:eureka-server"
 
 include "components:course"
 include "components:student"

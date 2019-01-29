@@ -46,7 +46,7 @@ jobs:
         username: $CF_USERNAME
         password: $CF_PASSWORD
         organization: $CF_ORG
-        space: review
+        space: kerim.strikovic@asynchrony.com
     - stage: deploy
       language: bash
       script:
@@ -77,13 +77,3 @@ jobs:
         - echo "Deploying grades server $RELEASE_TAG"
       deploy:
         <<: *cloudfoundry
-    - stage: migrate
-      language: java
-      before_install:
-        - wget -q -O - https://packages.cloudfoundry.org/debian/cli.cloudfoundry.org.key | sudo apt-key add -
-        - echo "deb https://packages.cloudfoundry.org/debian stable main" | sudo tee /etc/apt/sources.list.d/cloudfoundry-cli.list
-        - sudo apt-get update
-        - sudo apt-get install cf-cli
-      script:
-        - cf login -a $CF_API_URL -u $CF_USERNAME -p $CF_PASSWORD -o $CF_ORG -s review
-        - ./gradlew cfMigrate

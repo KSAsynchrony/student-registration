@@ -31,8 +31,7 @@ public class CourseController {
 
     @GetMapping("/allCourses")
     public String getAllStudents(ModelMap modelMap) {
-        modelMap.put("courses", courseClient.getAllCourses());
-        return "allCourses";
+        return mapAllCourses(modelMap);
     }
 
     @GetMapping("/addCourse")
@@ -44,8 +43,7 @@ public class CourseController {
     @PostMapping("/addCourse")
     public String addCourse(ModelMap modelMap, Course course) {
         courseClient.createCourse(course);
-        modelMap.put("courses", courseClient.getAllCourses());
-        return "allCourses";
+        return mapAllCourses(modelMap);
     }
 
     @GetMapping("/editCourse/{id}")
@@ -56,17 +54,13 @@ public class CourseController {
 
     @GetMapping("/course/{id}")
     public String viewCourse(ModelMap modelMap, @PathVariable long id) {
-        Set<Long> students = studentRegistrationService.getStudentsForCourse(id);
-        modelMap.put("course", courseClient.getCourseById(id));
-        modelMap.put("students", studentClient.getStudents(students));
-        return "course";
+        return mapCourse(modelMap, id);
     }
 
     @PostMapping("/editCourse")
     public String editStudent(ModelMap modelMap, Course course) {
         courseClient.editCourse(course);
-        modelMap.put("courses", courseClient.getAllCourses());
-        return "allCourses";
+        return mapAllCourses(modelMap);
     }
 
     @GetMapping("/deleteCourse/{id}")
@@ -81,6 +75,15 @@ public class CourseController {
                                 @RequestParam("courseId") long courseId,
                                 @RequestParam("studentId") long studentId) {
         studentRegistrationService.addStudentCourseRelationShip(studentId, courseId);
+        return mapCourse(modelMap, courseId);
+    }
+
+    private String mapAllCourses(ModelMap modelMap) {
+        modelMap.put("courses", courseClient.getAllCourses());
+        return "allCourses";
+    }
+
+    private String mapCourse(ModelMap modelMap, long courseId) {
         Set<Long> students = studentRegistrationService.getStudentsForCourse(courseId);
         modelMap.put("course", courseClient.getCourseById(courseId));
         modelMap.put("students", studentClient.getStudents(students));

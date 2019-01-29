@@ -15,12 +15,10 @@ import java.util.Set;
 @Controller
 public class CourseController {
 
-    CourseClient courseClient;
-    StudentClient studentClient;
+    private CourseClient courseClient;
+    private StudentClient studentClient;
+    private StudentRegistrationService studentRegistrationService;
 
-    StudentRegistrationService studentRegistrationService;
-
-    @Autowired
     public CourseController(CourseClient courseClient,
                             StudentClient studentClient,
                             StudentRegistrationService studentRegistrationService) {

@@ -4,6 +4,7 @@ import com.student.registration.StudentRegistrationService;
 import com.student.registration.domain.Grade;
 import com.student.registration.domain.Student;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,11 +20,10 @@ import java.util.Set;
 @Controller
 public class StudentController {
 
-    StudentClient studentClient;
-    CourseClient courseClient;
-    StudentRegistrationService studentRegistrationService;
+    private StudentClient studentClient;
+    private CourseClient courseClient;
+    private StudentRegistrationService studentRegistrationService;
 
-    @Autowired
     public StudentController (StudentClient studentClient,
                               CourseClient courseClient,
                               StudentRegistrationService studentRegistrationService) {

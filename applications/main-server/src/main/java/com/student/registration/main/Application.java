@@ -1,5 +1,6 @@
 package com.student.registration.main;
 
+import com.student.registration.StudentRegistrationRepository;
 import com.student.registration.StudentRegistrationService;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
@@ -17,6 +18,11 @@ public class Application {
 
     public static void main(String[] args) {
         SpringApplication.run(Application.class, args);
+    }
+
+    @Bean
+    StudentRegistrationService getRegistrationController() {
+        return new StudentRegistrationService();
     }
 
     @Bean

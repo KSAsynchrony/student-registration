@@ -8,7 +8,7 @@ import java.util.Set;
 @Service
 public class StudentRegistrationService {
 
-    private StudentRegistrationRepository studentRegistrationRepository = new StudentRegistrationRepository();
+    private StudentRegistrationRepository studentRegistrationRepository;
 
     public StudentRegistrationService() {}
 

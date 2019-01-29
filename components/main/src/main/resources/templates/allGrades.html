@@ -1,21 +1,33 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>All Grades for Student</title>
+    <title>Grades</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 </head>
 <body>
-<h2>Student Grades</h2>
 
-<span th:text="'Student Id: ' + ${studentId}" /><br/><br/>
-
-<th th:each="grade :${grades}">
-    <span th:text="'Course Id: ' + ${grade.courseId}" /><br/>
-    <span th:text="'Grade: ' + ${grade.band}" /><br/>
-    <br/>
-</th>
+<span th:text="'Id: ' + ${student.id}" /><br/><br/>
+<span th:text="'Name: ' + ${student.firstName} + ' ' + ${student.lastName}" />
 <br/>
-<a href="/updateGrades/"+${studentId}>Update Grades</a><br/>
+<br/>
+<table>
+    <tr>
+        <td>Course Id</td>
+        <td>Grade</td>
+    </tr>
+    <tr th:each="grade :${grades}">
+        <td><span th:text="${grade.courseId}" /></td>
+        <td><span th:text="${grade.band}" /></td>
+        <td><a th:href="'/updateGrade?studentId=' + ${grade.studentId} + '&amp;courseId=' + ${grade.courseId}">Update</a></td>
+    </tr>
+</table>
+<br/>
+<form action="#" th:action="@{/updateGrade}" method="get" studentId="studentId" courseId="courseId">
+    Course Id:<input type="text" id="courseId" name="courseId"/><br/>
+    <input hidden="true" type="text" id="studentId" name="studentId" th:value="${student.id}"/><br/>
+    <input type="submit" value="Add Grade"/>
+</form>
+<br/>
 <br/>
 <a href="/">Home</a><br/>
 </body>

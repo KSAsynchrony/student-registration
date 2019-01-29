@@ -1,6 +1,6 @@
 package com.student.registration.main;
 
-import com.student.registration.StudentRegistrationController;
+import com.student.registration.StudentRegistrationService;
 import com.student.registration.domain.Course;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import java.util.List;
 import java.util.Set;
 
 @Controller
@@ -19,15 +18,15 @@ public class CourseController {
     CourseClient courseClient;
     StudentClient studentClient;
 
-    StudentRegistrationController studentRegistrationController;
+    StudentRegistrationService studentRegistrationService;
 
     @Autowired
     public CourseController(CourseClient courseClient,
                             StudentClient studentClient,
-                            StudentRegistrationController studentRegistrationController) {
+                            StudentRegistrationService studentRegistrationService) {
         this.courseClient = courseClient;
         this.studentClient = studentClient;
-        this.studentRegistrationController = studentRegistrationController;
+        this.studentRegistrationService = studentRegistrationService;
     }
 
     @GetMapping("/allCourses")
@@ -57,7 +56,7 @@ public class CourseController {
 
     @GetMapping("/course/{id}")
     public String viewCourse(ModelMap modelMap, @PathVariable long id) {
-        Set<Long> students = studentRegistrationController.getStudentsForCourse(id);
+        Set<Long> students = studentRegistrationService.getStudentsForCourse(id);
         modelMap.put("course", courseClient.getCourseById(id));
         modelMap.put("students", studentClient.getStudents(students));
         return "course";
@@ -81,8 +80,8 @@ public class CourseController {
     public String enrollStudent(ModelMap modelMap,
                                 @RequestParam("courseId") long courseId,
                                 @RequestParam("studentId") long studentId) {
-        studentRegistrationController.addStudentCourseRelationShip(studentId, courseId);
-        Set<Long> students = studentRegistrationController.getStudentsForCourse(courseId);
+        studentRegistrationService.addStudentCourseRelationShip(studentId, courseId);
+        Set<Long> students = studentRegistrationService.getStudentsForCourse(courseId);
         modelMap.put("course", courseClient.getCourseById(courseId));
         modelMap.put("students", studentClient.getStudents(students));
         return "course";

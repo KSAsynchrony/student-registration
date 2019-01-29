@@ -1,7 +1,6 @@
 package com.student.registration.main;
 
-import com.student.registration.StudentRegistrationController;
-import com.student.registration.StudentRegistrationRepository;
+import com.student.registration.StudentRegistrationService;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
@@ -14,8 +13,8 @@ public class Application {
     }
 
     @Bean
-    StudentRegistrationController getRegistrationController() {
-        return new StudentRegistrationController();
+    StudentRegistrationService getRegistrationController() {
+        return new StudentRegistrationService();
     }
 
     @Bean

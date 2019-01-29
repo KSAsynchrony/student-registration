@@ -15,14 +15,18 @@ public class GradeRepository {
         for(Grade grade: grades){
             gradeList = gradesMap.get(grade.getStudentId());
             if(gradeList != null){
-                if(!gradeList.contains(grade) || isCourseGradeDifferent(gradeList, grade))
+                if(!gradeList.contains(grade)) {
                     gradeList.add(grade);
+                } else if (isCourseGradeDifferent(gradeList, grade)) {
+                    gradeList.remove(grade);
+                    gradeList.add(grade);
+                }
             }else{
                 gradeList = new ArrayList<>();
                 gradeList.add(grade);
                 gradesMap.put(grade.getStudentId(), gradeList);
             }
-         }
+        }
     }
 
     private boolean isCourseGradeDifferent(List<Grade> gradeList, Grade grade) {
@@ -33,7 +37,7 @@ public class GradeRepository {
         return gradesMap.get(studentId);
     }
 
-    public void deleteGradesForStudent(long studentId){
+    public void deleteGradesForStudent(long studentId) {
         gradesMap.remove(studentId);
     }
 

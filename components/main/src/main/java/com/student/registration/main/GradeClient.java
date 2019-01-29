@@ -14,7 +14,6 @@ public class GradeClient {
     RestTemplate restTemplate = new RestTemplate();
 
     public List<Grade> getGradesForStudent(long studentId){
-        System.out.println("calling it through client");
         return restTemplate.getForEntity(gradesApi+"/grades/"+studentId, List.class).getBody();
     }
 

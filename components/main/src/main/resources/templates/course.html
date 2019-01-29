@@ -16,6 +16,7 @@
         <td>First Name</td>
         <td>Last Name</td>
         <td></td>
+        <td>Grade</td>
     </tr>
     <tr th:each="student :${students}">
         <td>
@@ -30,6 +31,7 @@
         <td>
             <a th:href="'/dropStudent/' + ${course.id} + '/' + ${student.id}">Drop</a><br/>
         </td>
+        <td>E</td>
     </tr>
 </table>
 <br/>

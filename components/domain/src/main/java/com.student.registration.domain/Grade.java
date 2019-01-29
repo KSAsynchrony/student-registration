@@ -8,6 +8,8 @@ public class Grade {
     private long courseId;
     private String band;
 
+    public Grade() {}
+
     public Grade(long studentId, long courseId, String band) {
         this.studentId = studentId;
         this.courseId = courseId;

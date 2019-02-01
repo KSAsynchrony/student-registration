@@ -7,6 +7,11 @@ dependencyManagement {
         mavenBom "io.pivotal.spring.cloud:spring-cloud-services-dependencies:$springCloudServicesClientLibrariesVersion"
     }
 }
+
+bootRun.environment([
+        "REGISTRATION_SERVER_ENDPOINT": "http://registration-server"
+])
+
 dependencies {
     compile "org.springframework.boot:spring-boot-starter-web"
     compile "org.springframework.boot:spring-boot-starter-actuator"

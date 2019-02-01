@@ -1,30 +1,63 @@
 package com.student.registration.main;
 
+import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import com.student.registration.domain.Student;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.web.client.RestOperations;
 
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 
 public class StudentClient {
+    private final Logger logger = LoggerFactory.getLogger(getClass());
     private final RestOperations restOperations;
 
     private final String studentApiUrl;
+
+    private final Map<Long, Student> studentCache = new HashMap<>();
 
     public StudentClient(RestOperations restOperations, String studentApiUrl){
         this.restOperations = restOperations;
         this.studentApiUrl = studentApiUrl;
     }
 
+    @HystrixCommand(fallbackMethod = "getStudentFromCache")
     public Student getStudentById(Long id) {
-        return restOperations.getForEntity(studentApiUrl + "/getStudentById/" + id, Student.class).getBody();
+        Student student = restOperations.getForEntity(studentApiUrl + "/getStudentById/" + id, Student.class).getBody();
+        studentCache.put(id, student);
+        return student;
     }
 
+    public Student getStudentFromCache(Long id){
+          logger.info("Getting student with id {} from cache", id);
+          return studentCache.get(id);
+    }
+
+    @HystrixCommand(fallbackMethod = "getStudentsFromCache")
     public Set<Student> getStudents(Set<Long> ids) {
         return restOperations.postForEntity(studentApiUrl + "/getStudentsForIds", ids, Set.class).getBody();
     }
 
+    public Set<Student> getStudentsFromCache(Set<Long> ids){
+        Set<Student> students = new HashSet<>();
+        for(Long id: ids){
+            students.add(studentCache.get(id));
+        }
+        return students;
+    }
+
+    @HystrixCommand(fallbackMethod = "getAllStudentsFromCache")
     public Set<Student> getAllStudents() {
         return restOperations.getForEntity(studentApiUrl + "/allStudents", Set.class).getBody();
+    }
+
+    public Set<Student> getAllStudentsFromCache(){
+        Set<Student> students = new HashSet<>();
+        students.addAll(studentCache.values());
+        return students;
     }
 
     public Student createStudent(Student student) {

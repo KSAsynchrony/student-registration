@@ -1,16 +1,18 @@
 package com.student.registration;
 
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Set;
 
-@Service
 public class StudentRegistrationService {
 
     private StudentRegistrationRepository studentRegistrationRepository;
 
-    public StudentRegistrationService() {}
+    public StudentRegistrationService(StudentRegistrationRepository studentRegistrationRepository) {
+        this.studentRegistrationRepository = studentRegistrationRepository;
+    }
 
     public void deleteStudentMapping(long studentId){
         studentRegistrationRepository.deleteStudentMapping(studentId);

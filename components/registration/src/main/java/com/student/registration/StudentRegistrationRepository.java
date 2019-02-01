@@ -4,8 +4,6 @@ import org.springframework.stereotype.Component;
 
 import java.util.*;
 
-
-@Component
 public class StudentRegistrationRepository {
 
     private static Map<Long, List<Long>> studentCourseMap = new HashMap<>();

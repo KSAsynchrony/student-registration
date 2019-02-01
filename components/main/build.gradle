@@ -1,5 +1,6 @@
 dependencies {
     compile "org.springframework:spring-web:$springVersion"
+    compile "com.netflix.hystrix:hystrix-javanica:1.5.18"
     compile project(":components:course")
     compile project(":components:student")
     compile project(":components:grades")

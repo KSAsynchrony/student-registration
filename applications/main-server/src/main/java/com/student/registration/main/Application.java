@@ -5,6 +5,7 @@ import com.student.registration.StudentRegistrationService;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cloud.client.circuitbreaker.EnableCircuitBreaker;
 import org.springframework.cloud.client.loadbalancer.LoadBalanced;
 import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 import org.springframework.context.annotation.Bean;
@@ -16,6 +17,7 @@ import org.springframework.web.client.RestTemplate;
         org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration.class}
 )
 @EnableEurekaClient
+@EnableCircuitBreaker
 public class Application {
 
     public static void main(String[] args) {
@@ -24,7 +26,7 @@ public class Application {
 
     @Bean
     StudentRegistrationService getRegistrationController() {
-        return new StudentRegistrationService();
+        return new StudentRegistrationService(new StudentRegistrationRepository());
     }
 
     @Bean

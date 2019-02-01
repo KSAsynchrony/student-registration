@@ -28,7 +28,8 @@ public class GradeClient {
     @HystrixCommand(fallbackMethod = "getGradesForStudentFromCache")
     public List<Grade> getGradesForStudent(long studentId){
         List<Grade> gradeList = this.restOperations.getForEntity(this.gradesApiUrl +"/grades/"+studentId, List.class).getBody();
-        return gradesCache.put(studentId, gradeList);
+        gradesCache.put(studentId, gradeList);
+        return gradeList;
     }
 
     public List<Grade> getGradesForStudentFromCache(long id){
@@ -37,7 +38,7 @@ public class GradeClient {
     }
 
     public List<Grade> updateGradesForStudent(List<Grade> grades){
-        return this.restOperations.postForEntity(this.gradesApiUrl +"/grades", grades, List.class).getBody();
+        return restOperations.postForEntity(this.gradesApiUrl +"/grades", grades, List.class).getBody();
     }
 
 }

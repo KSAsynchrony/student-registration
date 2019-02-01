@@ -7,3 +7,4 @@ applications:
     instances: 1
     services:
       - registration-service-registry
+      - hystrix-dashboard

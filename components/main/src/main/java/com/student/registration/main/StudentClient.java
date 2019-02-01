@@ -27,7 +27,6 @@ public class StudentClient {
     @HystrixCommand(fallbackMethod = "getStudentFromCache")
     public Student getStudentById(Long id) {
         Student student = restOperations.getForEntity(studentApiUrl + "/getStudentById/" + id, Student.class).getBody();
-        studentCache.put(id, student);
         return student;
     }
 
@@ -61,7 +60,11 @@ public class StudentClient {
     }
 
     public Student createStudent(Student student) {
-        return restOperations.postForEntity(studentApiUrl + "/createStudent", student, Student.class).getBody();
+        Student newStudent = restOperations.postForEntity(studentApiUrl + "/createStudent", student, Student.class).getBody();
+        if(newStudent != null){
+            studentCache.put(newStudent.getId(), newStudent);
+        }
+        return newStudent;
     }
 
     public void deleteStudent(Long id) {

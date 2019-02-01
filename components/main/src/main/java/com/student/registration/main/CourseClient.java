@@ -28,7 +28,6 @@ public class CourseClient {
     @HystrixCommand(fallbackMethod = "getCourseFromCache")
     public Course getCourseById(Long id) {
         Course course = restOperations.getForEntity(courseApiUrl + "/lookupCourse/" + id, Course.class).getBody();
-        courseCache.put(id, course);
         return course;
     }
 
@@ -49,7 +48,11 @@ public class CourseClient {
     }
 
     public Course createCourse(Course course) {
-        return restOperations.postForEntity(courseApiUrl + "/createCourse", course, Course.class).getBody();
+        Course newCourse = restOperations.postForEntity(courseApiUrl + "/createCourse", course, Course.class).getBody();
+        if(newCourse != null){
+            courseCache.put(newCourse.getId(), newCourse);
+        }
+        return newCourse;
     }
 
     public void deleteCourse(Long id) {

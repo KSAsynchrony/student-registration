@@ -46,8 +46,12 @@ public class Application {
     }
 
     @Bean
+    ConfigVariables getConfigVariables(@Value("${display.variable}")String displayVariable) {
+        return new ConfigVariables(displayVariable);
+    }
+
+    @Bean
     GradeClient getGradesClient(RestOperations restOperations, @Value("${grades.api.url}")String gradesApiUrl) {
         return new GradeClient(restOperations, gradesApiUrl) ; }
-
 }
 

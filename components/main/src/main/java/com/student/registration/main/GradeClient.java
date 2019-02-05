@@ -4,6 +4,8 @@ import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import com.student.registration.domain.Grade;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.http.HttpMethod;
 import org.springframework.web.client.RestOperations;
 
 import java.util.HashMap;
@@ -27,7 +29,7 @@ public class GradeClient {
 
     @HystrixCommand(fallbackMethod = "getGradesForStudentFromCache")
     public List<Grade> getGradesForStudent(long studentId){
-        List<Grade> gradeList = this.restOperations.getForEntity(this.gradesApiUrl +"/grades/"+studentId, List.class).getBody();
+        List<Grade> gradeList = restOperations.exchange(this.gradesApiUrl +"/grades/"+studentId, HttpMethod.GET, null, new ParameterizedTypeReference<List<Grade>>() {}).getBody();
         gradesCache.put(studentId, gradeList);
         return gradeList;
     }

@@ -73,7 +73,7 @@ jobs:
     - stage: deploy
       language: bash
       script:
-        - echo "Downloading grade server $RELEASE_TAG"
+        - echo "Downloading grades server $RELEASE_TAG"
         - wget -P applications/grades-server/build/libs https://github.com/$GITHUB_USERNAME/student-registration/releases/download/$RELEASE_TAG/grades-server.jar
       before_deploy:
         - cp manifest-grades.yml manifest.yml

@@ -20,7 +20,6 @@ import org.springframework.web.client.RestTemplate;
 )
 @EnableEurekaClient
 @EnableCircuitBreaker
-@RefreshScope
 public class Application {
 
     public static void main(String[] args) {
@@ -39,21 +38,25 @@ public class Application {
     }
 
     @Bean
+    @RefreshScope
     StudentClient getStudentClient(RestOperations restOperations, @Value("${student.api.url}") String studentApiUrl) {
         return new StudentClient(restOperations, studentApiUrl);
     }
 
     @Bean
+    @RefreshScope
     CourseClient getCourseClient(RestOperations restOperations, @Value("${course.api.url}")String courseApiUrl) {
         return new CourseClient(restOperations, courseApiUrl);
     }
 
     @Bean
+    @RefreshScope
     ConfigVariables getConfigVariables(@Value("${display.variable}")String displayVariable) {
         return new ConfigVariables(displayVariable);
     }
 
     @Bean
+    @RefreshScope
     GradeClient getGradesClient(RestOperations restOperations, @Value("${grades.api.url}")String gradesApiUrl) {
         return new GradeClient(restOperations, gradesApiUrl) ; }
 }

@@ -21,7 +21,7 @@ public class StudentClient {
         this.studentApiUrl = studentApiUrl;
     }
 
-    @HystrixCommand(fallbackMethod = "getStudentFromCache")
+   // @HystrixCommand(fallbackMethod = "getStudentFromCache")
     public Student getStudentById(Long id) {
         Student student = restOperations.getForEntity(studentApiUrl + "/getStudentById/" + id, Student.class).getBody();
         return student;
@@ -32,7 +32,7 @@ public class StudentClient {
         return studentCache.get(id);
     }
 
-    @HystrixCommand(fallbackMethod = "getStudentsFromCache")
+    //@HystrixCommand(fallbackMethod = "getStudentsFromCache")
     public Set<Student> getStudents(Set<Long> ids) {
         return restOperations.postForEntity(studentApiUrl + "/getStudentsForIds", ids, Set.class).getBody();
     }
@@ -46,7 +46,7 @@ public class StudentClient {
         return students;
     }
 
-    @HystrixCommand(fallbackMethod = "getAllStudentsFromCache")
+   // @HystrixCommand(fallbackMethod = "getAllStudentsFromCache")
     public Set<Student> getAllStudents() {
         Set<Student> allStudents = restOperations.getForEntity(studentApiUrl + "/allStudents", Set.class).getBody();
         updateCache(allStudents);

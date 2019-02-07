@@ -25,7 +25,7 @@ public class CourseClient {
         this.courseApiUrl = courseApiUrl;
     }
 
-    @HystrixCommand(fallbackMethod = "getCourseFromCache")
+    //@HystrixCommand(fallbackMethod = "getCourseFromCache")
     public Course getCourseById(Long id) {
         Course course = restOperations.getForEntity(courseApiUrl + "/lookupCourse/" + id, Course.class).getBody();
         return course;
@@ -36,7 +36,7 @@ public class CourseClient {
         return courseCache.get(id);
     }
 
-    @HystrixCommand(fallbackMethod = "getAllCoursesFromCache")
+   // @HystrixCommand(fallbackMethod = "getAllCoursesFromCache")
     public Set<Course> getAllCourses() {
         return restOperations.getForEntity(courseApiUrl + "/allCourses", Set.class).getBody();
     }
@@ -63,7 +63,7 @@ public class CourseClient {
         restOperations.postForEntity(courseApiUrl + "/editCourse", course, Course.class);
     }
 
-    @HystrixCommand(fallbackMethod = "getCoursesFromCache")
+    //@HystrixCommand(fallbackMethod = "getCoursesFromCache")
     public Set<Course> getCourses(Set<Long> ids) {
         return restOperations.postForEntity(courseApiUrl + "/getCoursesForIds", ids, Set.class).getBody();
     }

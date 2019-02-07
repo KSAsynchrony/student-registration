@@ -27,7 +27,7 @@ public class GradeClient {
     }
 
 
-    @HystrixCommand(fallbackMethod = "getGradesForStudentFromCache")
+    //@HystrixCommand(fallbackMethod = "getGradesForStudentFromCache")
     public List<Grade> getGradesForStudent(long studentId){
         List<Grade> gradeList = restOperations.exchange(this.gradesApiUrl +"/grades/"+studentId, HttpMethod.GET, null, new ParameterizedTypeReference<List<Grade>>() {}).getBody();
         gradesCache.put(studentId, gradeList);

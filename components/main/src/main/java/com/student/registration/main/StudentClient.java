@@ -19,7 +19,7 @@ public class StudentClient {
 
     private final Map<Long, Student> studentCache = new HashMap<>();
 
-    public StudentClient(RestOperations restOperations, String studentApiUrl){
+    public StudentClient(RestOperations restOperations, String studentApiUrl) {
         this.restOperations = restOperations;
         this.studentApiUrl = studentApiUrl;
     }
@@ -30,9 +30,9 @@ public class StudentClient {
         return student;
     }
 
-    public Student getStudentFromCache(Long id){
-          logger.info("Getting student with id {} from cache", id);
-          return studentCache.get(id);
+    public Student getStudentFromCache(Long id) {
+        logger.info("Hitting getStudentFromCache()");
+        return studentCache.get(id);
     }
 
     @HystrixCommand(fallbackMethod = "getStudentsFromCache")
@@ -40,9 +40,10 @@ public class StudentClient {
         return restOperations.postForEntity(studentApiUrl + "/getStudentsForIds", ids, Set.class).getBody();
     }
 
-    public Set<Student> getStudentsFromCache(Set<Long> ids){
+    public Set<Student> getStudentsFromCache(Set<Long> ids) {
+        logger.info("Hitting getStudentsFromCache()");
         Set<Student> students = new HashSet<>();
-        for(Long id: ids){
+        for (Long id : ids) {
             students.add(studentCache.get(id));
         }
         return students;
@@ -50,10 +51,20 @@ public class StudentClient {
 
     @HystrixCommand(fallbackMethod = "getAllStudentsFromCache")
     public Set<Student> getAllStudents() {
-        return restOperations.getForEntity(studentApiUrl + "/allStudents", Set.class).getBody();
+        Set<Student> allStudents = restOperations.getForEntity(studentApiUrl + "/allStudents", Set.class).getBody();
+        updateCache(allStudents);
+        return allStudents;
     }
 
-    public Set<Student> getAllStudentsFromCache(){
+    private void updateCache(Set<Student> allStudents) {
+        studentCache.clear();
+        for (Student student : allStudents) {
+            studentCache.put(student.getId(), student);
+        }
+    }
+
+    public Set<Student> getAllStudentsFromCache() {
+        logger.info("Hitting getAllStudentsFromCache()");
         Set<Student> students = new HashSet<>();
         students.addAll(studentCache.values());
         return students;
@@ -61,7 +72,7 @@ public class StudentClient {
 
     public Student createStudent(Student student) {
         Student newStudent = restOperations.postForEntity(studentApiUrl + "/createStudent", student, Student.class).getBody();
-        if(newStudent != null){
+        if (newStudent != null) {
             studentCache.put(newStudent.getId(), newStudent);
         }
         return newStudent;

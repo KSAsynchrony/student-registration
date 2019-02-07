@@ -9,7 +9,10 @@ dependencyManagement {
 }
 
 bootRun.environment([
-        "REGISTRATION_SERVER_ENDPOINT": "http://registration-server"
+        "student.api.url": "http://student-server",
+        "course.api.url": "http://course-server",
+        "grades.api.url": "http://grades-server",
+        "display.variable": "HelloFromConfig"
 ])
 
 dependencies {

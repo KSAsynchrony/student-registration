@@ -6,10 +6,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.client.RestOperations;
 
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 public class StudentClient {
     private final Logger logger = LoggerFactory.getLogger(getClass());
@@ -58,7 +55,11 @@ public class StudentClient {
 
     private void updateCache(Set<Student> allStudents) {
         studentCache.clear();
-        for (Student student : allStudents) {
+        Iterator<Student> studentIterator = allStudents.iterator();
+
+        while(studentIterator.hasNext()){
+            Student student = studentIterator.next();
+            logger.info("going to add this student {} ", student);
             studentCache.put(student.getId(), student);
         }
     }

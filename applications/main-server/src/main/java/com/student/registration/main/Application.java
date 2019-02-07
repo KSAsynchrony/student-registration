@@ -20,6 +20,7 @@ import org.springframework.web.client.RestTemplate;
 )
 @EnableEurekaClient
 @EnableCircuitBreaker
+@RefreshScope
 public class Application {
 
     public static void main(String[] args) {

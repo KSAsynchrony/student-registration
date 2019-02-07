@@ -1,9 +1,12 @@
 package com.student.registration.main;
 
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
+import com.student.registration.domain.Grade;
 import com.student.registration.domain.Student;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.http.HttpMethod;
 import org.springframework.web.client.RestOperations;
 
 import java.util.*;
@@ -21,7 +24,7 @@ public class StudentClient {
         this.studentApiUrl = studentApiUrl;
     }
 
-   // @HystrixCommand(fallbackMethod = "getStudentFromCache")
+    @HystrixCommand(fallbackMethod = "getStudentFromCache")
     public Student getStudentById(Long id) {
         Student student = restOperations.getForEntity(studentApiUrl + "/getStudentById/" + id, Student.class).getBody();
         return student;
@@ -32,7 +35,7 @@ public class StudentClient {
         return studentCache.get(id);
     }
 
-    //@HystrixCommand(fallbackMethod = "getStudentsFromCache")
+    @HystrixCommand(fallbackMethod = "getStudentsFromCache")
     public Set<Student> getStudents(Set<Long> ids) {
         return restOperations.postForEntity(studentApiUrl + "/getStudentsForIds", ids, Set.class).getBody();
     }
@@ -46,9 +49,9 @@ public class StudentClient {
         return students;
     }
 
-   // @HystrixCommand(fallbackMethod = "getAllStudentsFromCache")
+    @HystrixCommand(fallbackMethod = "getAllStudentsFromCache")
     public Set<Student> getAllStudents() {
-        Set<Student> allStudents = restOperations.getForEntity(studentApiUrl + "/allStudents", Set.class).getBody();
+        Set<Student> allStudents = restOperations.exchange(studentApiUrl + "/allStudents", HttpMethod.GET, null, new ParameterizedTypeReference<Set<Student>>() {}).getBody();
         updateCache(allStudents);
         return allStudents;
     }

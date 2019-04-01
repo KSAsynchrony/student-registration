@@ -4,6 +4,7 @@ import com.student.registration.StudentRegistrationService;
 import com.student.registration.domain.Grade;
 import com.student.registration.domain.Student;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -23,18 +24,26 @@ public class StudentController {
     private StudentClient studentClient;
     private CourseClient courseClient;
     private StudentRegistrationService studentRegistrationService;
+    private final String cfInstanceIndex;
+    private final String cfInstanceAddress;
 
     public StudentController (StudentClient studentClient,
                               CourseClient courseClient,
-                              StudentRegistrationService studentRegistrationService) {
+                              StudentRegistrationService studentRegistrationService,
+                              @Value("${CF_INSTANCE_INDEX:NOT SET}") String cfInstanceIndex,
+                              @Value("${CF_INSTANCE_ADDR:NOT SET}") String cfInstanceAddress) {
         this.studentClient = studentClient;
         this.courseClient = courseClient;
         this.studentRegistrationService = studentRegistrationService;
+        this.cfInstanceIndex = cfInstanceIndex;
+        this.cfInstanceAddress = cfInstanceAddress;
     }
 
     @GetMapping("/allStudents")
     public String getAllStudents(ModelMap modelMap) {
         modelMap.put("students", studentClient.getAllStudents());
+        modelMap.put("cfInstanceIndex", cfInstanceIndex);
+        modelMap.put("cfInstanceAddress", cfInstanceAddress);
         return "allStudents";
     }
 

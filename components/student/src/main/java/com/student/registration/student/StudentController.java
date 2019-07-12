@@ -11,14 +11,14 @@ import java.util.Set;
 @Controller
 public class StudentController {
 
-    StudentRepository studentRepository;
-    public StudentController(StudentRepository studentRepository) {
+    StudentSqlRepository studentRepository;
+    public StudentController(StudentSqlRepository studentRepository) {
         this.studentRepository = studentRepository;
     }
 
     @GetMapping(value = "/allStudents")
     public ResponseEntity<Set<Student>> getAllStudents() {
-        return new ResponseEntity(studentRepository.values(), HttpStatus.OK);
+        return new ResponseEntity(studentRepository.getAll(), HttpStatus.OK);
     }
 
     @GetMapping(value = "/getStudentById/{id}")
@@ -38,7 +38,7 @@ public class StudentController {
 
     @PostMapping(value = "/editStudent")
     public ResponseEntity<Student> editStudent(@RequestBody Student student) {
-        return new ResponseEntity(studentRepository.put(student.getId(), student), HttpStatus.OK);
+        return new ResponseEntity(studentRepository.edit(student.getId(), student), HttpStatus.OK);
     }
 
     @DeleteMapping(value = "/deleteStudent/{id}")

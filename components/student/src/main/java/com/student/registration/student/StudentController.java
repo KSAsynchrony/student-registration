@@ -1,6 +1,7 @@
 package com.student.registration.student;
 
 import com.student.registration.domain.Student;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -11,7 +12,10 @@ import java.util.Set;
 @Controller
 public class StudentController {
 
+
     StudentSqlRepository studentRepository;
+
+    @Autowired
     public StudentController(StudentSqlRepository studentRepository) {
         this.studentRepository = studentRepository;
     }

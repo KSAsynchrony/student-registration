@@ -10,16 +10,12 @@ import org.springframework.cloud.client.loadbalancer.LoadBalanced;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestOperations;
 import org.springframework.web.client.RestTemplate;
 
 @SpringBootApplication(exclude = {
         org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration.class}
 )
-@EnableEurekaClient
-@EnableCircuitBreaker
 public class Application {
 
     public static void main(String[] args) {
@@ -32,7 +28,6 @@ public class Application {
     }
 
     @Bean
-    @LoadBalanced
     public RestOperations restOperations() {
         return new RestTemplate();
     }

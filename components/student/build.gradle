@@ -1,4 +1,8 @@
 dependencies {
     compile project(":components:domain")
     compile "org.springframework:spring-web:$springVersion"
+
+    compile("org.springframework:spring-jdbc:5.0.8.RELEASE")
+
+    compile("com.h2database:h2")
 }

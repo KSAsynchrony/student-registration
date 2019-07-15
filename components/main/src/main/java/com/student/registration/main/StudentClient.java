@@ -49,7 +49,6 @@ public class StudentClient {
         return students;
     }
 
-    @HystrixCommand(fallbackMethod = "getAllStudentsFromCache")
     public Set<Student> getAllStudents() {
         Set<Student> allStudents = restOperations.exchange(studentApiUrl + "/allStudents", HttpMethod.GET, null, new ParameterizedTypeReference<Set<Student>>() {}).getBody();
         updateCache(allStudents);

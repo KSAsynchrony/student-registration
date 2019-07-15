@@ -4,7 +4,7 @@ import com.student.registration.domain.Student;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -12,16 +12,18 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-@Service
+@Component
 public class StudentSqlRepository {
 
-    @Autowired
-    JdbcTemplate jdbcTemplate;
+    private JdbcTemplate jdbcTemplate;
 
-    StudentSqlRepository() {
+    @Autowired
+    StudentSqlRepository(JdbcTemplate jdbcTemplate) {
+        this.jdbcTemplate = jdbcTemplate;
+
         jdbcTemplate.execute("DROP TABLE students IF EXISTS");
         jdbcTemplate.execute("CREATE TABLE students(" +
-                "id ID, firstName VARCHAR(255), lastName VARCHAR(255))");
+                "id SERIAL, firstName VARCHAR(255), lastName VARCHAR(255))");
 
         addStudent(new Student(0l, "Kerim", "Strikovic"));
         addStudent(new Student(0l, "Arun", "Kumar"));
@@ -29,11 +31,11 @@ public class StudentSqlRepository {
     }
 
     public Set<Student> getAll() {
-        return toSet(jdbcTemplate.query("SELECT ID, firstName, lastName FROM students", studentRowMapper));
+        return toSet(jdbcTemplate.query("SELECT id, firstName, lastName FROM students", studentRowMapper));
     }
 
     public Student get(Long id) {
-        return (Student) jdbcTemplate.query("SELECT ID, firstName, lastName FROM students WHERE ID = ?",
+        return (Student) jdbcTemplate.query("SELECT id, firstName, lastName FROM students WHERE id = ?",
                 new Object[] {id},
                 studentRowMapper)
                 .stream().findAny().get();
@@ -69,7 +71,7 @@ public class StudentSqlRepository {
     private RowMapper studentRowMapper = new RowMapper<Student>() {
         @Override
         public Student mapRow(ResultSet rs, int rowNum) throws SQLException {
-            return new Student(rs.getLong("ID"),
+            return new Student(rs.getLong("id"),
                     rs.getString("firstName"),
                     rs.getString("lastName"));
         }

@@ -58,13 +58,16 @@ public class StudentSqlRepository {
     }
 
     public Student edit(Long id, Student student) {
-        return null;
+        jdbcTemplate.update("UPDATE students SET firstName = ?, lastName = ? WHERE id = ?;",
+                student.getFirstName(),
+                student.getLastName(),
+                id);
+        return student;
     }
 
     public Student remove(long id) {
         Student deletedStudent = get(id);
         jdbcTemplate.update("DELETE FROM students WHERE id = ?", new Object[] {id});
-
         return deletedStudent;
     }
 

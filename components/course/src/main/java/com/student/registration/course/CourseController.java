@@ -23,7 +23,7 @@ public class CourseController {
     @GetMapping("/lookupCourse/{id}")
     @ResponseBody
     public Course lookupCourse(@PathVariable long id) throws Exception {
-        Course course = courseRepository.findCourse(id);
+        Course course = courseRepository.getCourseById(id);
         if(course != null){
             return course;
         }else{
@@ -34,20 +34,22 @@ public class CourseController {
     @PostMapping("/createCourse")
     @ResponseBody
     public Course createCourse(@RequestBody Course course){
-        return courseRepository.insertCourse(course);
+        courseRepository.addCourse(course);
+        return course;
     }
 
     @PostMapping("/editCourse")
     @ResponseBody
     public Course editCourse(@RequestBody Course course){
-        return courseRepository.editCourse(course);
+        courseRepository.editCourse(course);
+        return course;
     }
 
     @DeleteMapping("/deleteCourse/{id}")
     @ResponseBody
     public Course deleteCourse(@PathVariable long id) throws Exception {
         try {
-            courseRepository.delete(id);
+            courseRepository.deleteCourse(id);
             return new Course();
         }catch (Exception e){
             throw e;

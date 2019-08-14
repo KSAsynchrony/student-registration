@@ -1,0 +1,5 @@
+dependencies {
+    compile "org.springframework:spring-web:$springVersion"
+    compile project(":components:course")
+    compile project(":components:student")
+}

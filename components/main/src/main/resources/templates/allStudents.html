@@ -1,0 +1,23 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Getting Started: Serving Web Content</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+<h2>All Registered Students</h2>
+
+<th th:each="student :${students}">
+    <span th:text="'Id: ' + ${student.id}" /><br/>
+    <span th:text="'First Name: ' + ${student.firstName}" /><br/>
+    <span th:text="'Last Name: ' + ${student.lastName}" /><br/>
+    <a th:href="'/editStudent/' + ${student.id}">Edit</a><br/>
+    <a th:href="'/deleteStudent/' + ${student.id}">Delete</a><br/>
+    <br/>
+</th>
+<br/>
+<a href="/addStudent">Add a Student</a>
+<br/>
+<a href="/">Home</a><br/>
+</body>
+</html>
